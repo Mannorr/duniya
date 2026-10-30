@@ -5,10 +5,15 @@ Website for DÚNÍYÀ, a Christian clothing house in Lagos making Afro-modern, m
 ## Structure
 
 ```
-index.html              single-page site
-assets/css/styles.css   all styles (brand tokens at the top)
-assets/js/main.js       collection cards, filters, menu, copy button
-assets/img/logo/        wordmark, monogram and seal
+index.html              Home: hero, statement, looks rail, features, page links
+house.html              The House: meaning, values, origin, worldview, women's expression
+collection.html         Collection: every look, filters, detail view with extra angles
+lookbook.html           Lookbook: the collection in six acts, from the shoot plan
+craft.html              Craft: annotated close-ups, fabrics, recognition principles, process
+order.html              Order: steps, WhatsApp, measurements, questions
+assets/css/styles.css   shared styles (brand tokens at the top)
+assets/js/main.js       collection data, lightbox, hotspots, menu, WhatsApp
+assets/img/logo/        seal, wordmarks, monograms
 assets/img/photos/      campaign photography (web-sized)
 ```
 
@@ -24,8 +29,9 @@ Type: Gloock (display), Cormorant Garamond italic (accent), Jost (body).
 
 ## Editing
 
-- **Collection looks** live in the `looks` array at the top of `assets/js/main.js`. Each look takes a front image and an optional second angle shown on hover.
-- **WhatsApp number** is the `#waNum` element in the ordering section of `index.html`. It is a placeholder until the business number is confirmed.
+- **Collection looks** live in the `LOOKS` array at the top of `assets/js/main.js`. Each look has a main photo (`img`) and extra angles (`alt`) shown on hover and in the detail view. Its size in the editorial grid is set in `LAYOUT` just above.
+- **WhatsApp number**: set `WHATSAPP_NUMBER` at the top of `assets/js/main.js` (digits with country code, e.g. `2348012345678`). Every "Order" and "Enquire" button then opens WhatsApp with a message naming the look.
+- **New photos**: add them to `assets/img/photos/` at about 1400px on the long edge.
 
 ## Run locally
 
