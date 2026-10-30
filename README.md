@@ -25,6 +25,10 @@ vercel.json, _headers   clean URLs and security headers for Vercel / Cloudflare 
 
 Links have no `.html`: `/house`, `/collection`, `/order?look=Onyx#enquire`. GitHub Pages, Vercel, Cloudflare Pages and Netlify all serve `house.html` for `/house`. Keep the files named `*.html`; only the links drop the extension.
 
+## Analytics
+
+Vercel Web Analytics loads automatically on the Vercel site and your custom domain (`assets/js/main.js`, near the end). It is cookie-free and served from the site's own domain, so no consent banner or extra security exceptions are needed. It does not load on GitHub Pages or locally. Turn it on in Vercel: project → Analytics → Enable.
+
 ## Security
 
 - **In every page:** a Content Security Policy that only allows this site's own files, plus the Google Apps Script form endpoint. No third-party scripts, fonts or trackers.

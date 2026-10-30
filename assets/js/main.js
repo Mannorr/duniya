@@ -256,6 +256,16 @@ const LOOKS = [
     });
   }
 
+  /* Vercel Web Analytics: cookie-free, served from this site's own domain.
+     Only loads on Vercel (the script does not exist on GitHub Pages or locally). */
+  const host = location.hostname;
+  if (host && !host.endsWith("github.io") && host !== "localhost" && host !== "127.0.0.1" && location.protocol === "https:"){
+    window.va = window.va || function(){ (window.vaq = window.vaq || []).push(arguments); };
+    const va = document.createElement("script");
+    va.defer = true; va.src = "/_vercel/insights/script.js";
+    document.head.appendChild(va);
+  }
+
   /* gentle reveal; content is visible at rest */
   if ("IntersectionObserver" in window && !matchMedia("(prefers-reduced-motion: reduce)").matches){
     const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting){ e.target.classList.remove("pre"); io.unobserve(e.target); } }), { threshold: .1 });
