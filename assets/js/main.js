@@ -4,6 +4,9 @@
    While empty, the site shows a placeholder and the buttons scroll to the order section. */
 const WHATSAPP_NUMBER = "";
 
+/* Paste the Google Apps Script Web app URL here (ends in /exec). See apps-script/README.md. */
+const FORM_ENDPOINT = "";
+
 const IMG = "assets/img/photos/";
 
 /* The collection. `img` is the main photo; `alt` images show on hover and in the detail view. */
@@ -136,7 +139,7 @@ const LOOKS = [
       $("#lbDesc").textContent = l.d;
       $("#lbPieces").textContent = l.pieces;
       $("#lbFabric").textContent = l.fabric;
-      $("#lbEnquire").href = enquireHref(l.name);
+      $("#lbEnquire").href = "order.html?look=" + encodeURIComponent(l.name) + "#enquire";
       lb.hidden = false; document.body.style.overflow = "hidden";
       history.replaceState(null, "", "#" + l.id);
       $("#lbClose").focus();
@@ -170,7 +173,7 @@ const LOOKS = [
 
   /* WhatsApp */
   function enquireHref(lookName){
-    if (!WHATSAPP_NUMBER) return "order.html?look=" + encodeURIComponent(lookName) + "#whatsapp";
+    if (!WHATSAPP_NUMBER) return "order.html" + (lookName ? "?look=" + encodeURIComponent(lookName) : "") + "#enquire";
     const msg = lookName ? `Hello DÚNÍYÀ, I'd like to order the ${lookName} look.` : "Hello DÚNÍYÀ, I'd like to place an order.";
     return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
   }
@@ -186,6 +189,68 @@ const LOOKS = [
       const txt = waNum.textContent;
       const fallback = () => { const r = document.createRange(); r.selectNodeContents(waNum); const s = getSelection(); s.removeAllRanges(); s.addRange(r); toast.textContent = "Selected. Copy with your keyboard."; };
       if (navigator.clipboard) navigator.clipboard.writeText(txt).then(() => toast.textContent = "Copied", fallback); else fallback();
+    });
+  }
+
+  /* enquiry form → Google Sheet via Apps Script */
+  const form = $("#eform");
+  if (form){
+    const wanted = (new URLSearchParams(location.search).get("look") || "").toLowerCase();
+    $("#f-looks").innerHTML = LOOKS.filter(l => l.g !== "footwear").map(l =>
+      `<label class="opt"><input type="checkbox" name="look" value="${l.name}"${l.name.toLowerCase() === wanted ? " checked" : ""}><span>${l.name}</span></label>`).join("")
+      + `<label class="opt"><input type="checkbox" name="look" value="Footwear"><span>Footwear</span></label>`
+      + `<label class="opt"><input type="checkbox" name="look" value="Not sure yet"><span>Help me choose</span></label>`;
+
+    const status = $("#f-status"), btn = $("#f-submit");
+    const setErr = (id, msg) => { const f = $("#f-" + id).closest(".field"); f.classList.toggle("bad", !!msg); $("#e-" + id).textContent = msg || ""; };
+    const validate = () => {
+      const v = id => $("#f-" + id).value.trim();
+      const digits = v("phone").replace(/\D/g, "");
+      const errs = {
+        name: v("name").length < 2 ? "Please add your name." : "",
+        phone: digits.length < 10 ? "Please add a phone number we can reach, e.g. 0803 000 0000." : "",
+        email: v("email") && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v("email")) ? "Please check this email address." : "",
+        city: v("city").length < 2 ? "Please add your city." : ""
+      };
+      Object.entries(errs).forEach(([k, m]) => setErr(k, m));
+      const first = Object.keys(errs).find(k => errs[k]);
+      if (first) $("#f-" + first).focus();
+      return !first;
+    };
+    ["name","phone","email","city"].forEach(id => $("#f-" + id).addEventListener("input", () => setErr(id, "")));
+
+    form.addEventListener("submit", async e => {
+      e.preventDefault();
+      status.textContent = "";
+      if (!validate()) return;
+      if (!FORM_ENDPOINT){
+        status.textContent = "The form isn’t connected yet. Please message us on WhatsApp below.";
+        return;
+      }
+      const fd = new FormData(form);
+      const body = new URLSearchParams();
+      for (const [k, v] of fd) if (k !== "look") body.append(k, v);
+      body.append("looks", fd.getAll("look").join(", "));
+      body.append("page", "order.html" + (wanted ? "?look=" + wanted : ""));
+
+      btn.disabled = true; btn.textContent = "Sending…";
+      let result = null;
+      try {
+        const res = await fetch(FORM_ENDPOINT, { method: "POST", body });
+        result = await res.json();
+      } catch (err) {
+        try { await fetch(FORM_ENDPOINT, { method: "POST", body, mode: "no-cors" }); result = { ok: true, ref: "" }; }
+        catch (err2) { result = { ok: false, error: "We couldn’t send your enquiry. Check your connection and try again, or message us on WhatsApp." }; }
+      }
+      btn.disabled = false; btn.textContent = "Send enquiry";
+      if (!result || !result.ok){ status.textContent = (result && result.error) || "Something went wrong. Please try again."; return; }
+
+      const name = $("#f-name").value.trim().split(" ")[0];
+      const how = (fd.get("contact") === "Call") ? "call you" : (fd.get("contact") === "Either" ? "call or WhatsApp you" : "WhatsApp you");
+      $("#d-title").textContent = `Thank you, ${name}.`;
+      $("#d-text").textContent = `A person from the house will ${how} on ${$("#f-phone").value.trim()}.` + ($("#f-email").value.trim() ? " We’ve also sent a confirmation to your email." : "");
+      $("#d-ref").textContent = result.ref ? `Your reference: ${result.ref}` : "";
+      form.hidden = true; $("#f-done").hidden = false; $("#f-done").focus();
     });
   }
 
