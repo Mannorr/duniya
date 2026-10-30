@@ -13,6 +13,7 @@
 
 const CONFIG = {
   NOTIFY_EMAIL: "houseofduniya@gmail.com",
+  BUSINESS_WHATSAPP: "+234 815 901 9324",  // shown to customers in their confirmation email
   SHEET_NAME: "Enquiries",
   REF_PREFIX: "DN-",
   SEND_CUSTOMER_CONFIRMATION: true,   // only sent when the customer gives an email
@@ -171,6 +172,7 @@ function confirmCustomer(d) {
       <p style="font:15px/1.6 Arial;color:#C9D1C4">We have received your enquiry about <b style="color:#F0E2D2">${esc(d.looks)}</b>.
       A person from the house will contact you by ${esc(d.contact === "Call" ? "phone" : "WhatsApp")} on ${esc(d.phone)}.</p>
       <p style="font:15px/1.6 Arial;color:#C9D1C4">Every piece is made to your measurements. Please keep your reference, ${d.ref}, for any questions.</p>
+      <p style="font:15px/1.6 Arial;color:#C9D1C4">Questions before then? WhatsApp us on <a href="https://wa.me/${CONFIG.BUSINESS_WHATSAPP.replace(/\D/g, "")}" style="color:#D49A63">${CONFIG.BUSINESS_WHATSAPP}</a>.</p>
       <p style="font-style:italic;font:18px Georgia;color:#D49A63;margin-top:26px">Made for you, to measure.</p>
     </div>
   </div>`;
@@ -178,7 +180,7 @@ function confirmCustomer(d) {
     to: d.email,
     subject: `We've received your enquiry · ${d.ref}`,
     htmlBody: html,
-    body: `Thank you, ${firstName(d.name)}. We have received your enquiry (${d.ref}) about ${d.looks}. A person from the house will contact you on ${d.phone}.`,
+    body: `Thank you, ${firstName(d.name)}. We have received your enquiry (${d.ref}) about ${d.looks}. A person from the house will contact you on ${d.phone}. Questions? WhatsApp us on ${CONFIG.BUSINESS_WHATSAPP}.`,
     replyTo: CONFIG.NOTIFY_EMAIL,
     name: "DÚNÍYÀ"
   });

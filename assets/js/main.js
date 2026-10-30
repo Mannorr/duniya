@@ -2,7 +2,7 @@
 
 /* Set the WhatsApp Business number here, digits only with country code (e.g. "2348012345678").
    While empty, the site shows a placeholder and the buttons scroll to the order section. */
-const WHATSAPP_NUMBER = "";
+const WHATSAPP_NUMBER = "2348159019324";
 
 /* Paste the Google Apps Script Web app URL here (ends in /exec). See apps-script/README.md. */
 const FORM_ENDPOINT = "";
@@ -179,7 +179,7 @@ const LOOKS = [
   }
   $$("[data-wa]").forEach(a => { a.href = enquireHref(a.dataset.wa || ""); if (WHATSAPP_NUMBER) a.target = "_blank"; });
   const waNum = $("#waNum");
-  if (waNum && WHATSAPP_NUMBER) waNum.textContent = "+" + WHATSAPP_NUMBER;
+  if (waNum && WHATSAPP_NUMBER) waNum.textContent = "+" + WHATSAPP_NUMBER.replace(/^(\d{3})(\d{3})(\d{3})(\d+)$/, "$1 $2 $3 $4");
   const look = new URLSearchParams(location.search).get("look");
   const enq = $("#enquiry");
   if (enq && look){ enq.textContent = `You're enquiring about the ${look} look.`; enq.classList.add("on"); }
