@@ -56,4 +56,8 @@ A free Gmail account can send about 100 emails a day from scripts. Each enquiry 
 
 - A hidden field catches most spam bots.
 - Submitting twice from the same number within 2 minutes returns the same reference instead of a duplicate row.
+- No more than 30 enquiries are accepted per 10 minutes site-wide, so a flood cannot exhaust your inbox or email quota.
+- Submissions sent faster than a person could fill the form are ignored.
+- A customer address gets at most one confirmation email per 6 hours, and confirmations stop before your own notification quota runs low, so the form cannot be used to spam others.
 - Values that look like spreadsheet formulas are stored as plain text.
+- Keep the sheet private (not shared by link). The script runs as you; nobody else needs access.

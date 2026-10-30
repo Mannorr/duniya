@@ -16,7 +16,21 @@ assets/js/main.js       collection data, lightbox, hotspots, menu, WhatsApp
 assets/img/logo/        seal, wordmarks, monograms
 assets/img/photos/      campaign photography (web-sized)
 apps-script/            Google Apps Script for the enquiry form (Sheet + email)
+assets/fonts/           brand fonts, self-hosted (SIL Open Font License)
+404.html                not-found page
+vercel.json, _headers   clean URLs and security headers for Vercel / Cloudflare Pages / Netlify
 ```
+
+## Addresses
+
+Links have no `.html`: `/house`, `/collection`, `/order?look=Onyx#enquire`. GitHub Pages, Vercel, Cloudflare Pages and Netlify all serve `house.html` for `/house`. Keep the files named `*.html`; only the links drop the extension.
+
+## Security
+
+- **In every page:** a Content Security Policy that only allows this site's own files, plus the Google Apps Script form endpoint. No third-party scripts, fonts or trackers.
+- **From the host (`vercel.json` / `_headers`):** the same policy plus HSTS, no framing (clickjacking), `nosniff`, a strict referrer policy and a locked-down permissions policy. GitHub Pages cannot send headers, so these apply once the site moves to Vercel, Cloudflare Pages or Netlify.
+- **Form back end:** hidden spam field, too-fast submissions ignored, duplicate and flood limits, formula-injection protection, and limits so the form cannot be used to spam other people's inboxes.
+- If you add a new outside service (analytics, embed, payment), add its domain to the policy in all three places: the `<meta>` tag in each page, `vercel.json` and `_headers`.
 
 ## Brand tokens
 
