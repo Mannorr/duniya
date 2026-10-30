@@ -7,7 +7,7 @@ const WHATSAPP_NUMBER = "";
 const IMG = "assets/img/photos/";
 
 /* The collection. `img` is the main photo; `alt` images show on hover and in the detail view. */
-const LAYOUT = {"platinum": "6", "ember": "3", "moss": "3 drop", "cafe": "4 drop", "lumen": "6 drop", "tide": "4", "harvest": "4 drop", "merlot": "6", "stillwater": "4", "vine": "4 drop", "noir": "4", "olive-slide": "6", "stripe-thong": "6 drop"};
+const LAYOUT = {"platinum": "6", "ember": "3", "moss": "3 drop", "cafe": "4 drop", "lumen": "6 drop", "tide": "4", "harvest": "4 drop", "onyx": "6", "stillwater": "4", "vine": "4 drop", "noir": "4", "olive-slide": "6", "stripe-thong": "6 drop"};
 
 const LOOKS = [
   { id:"platinum", n:"06", name:"Platinum", g:"women", img:"plat_front", alt:["plat6","plat3","plat4","plat5"],
@@ -31,9 +31,9 @@ const LOOKS = [
   { id:"lumen", n:"08", name:"Lumen", g:"women", img:"lumen", alt:[],
     d:"A clean white shift with a deep notch neckline and two welt pockets. Above the knee.",
     pieces:"Two-pocket dress", fabric:"White linen" },
-  { id:"merlot", n:"M1", name:"Merlot", g:"men", img:"wine", alt:["wine_sandal"],
-    d:"A long-sleeved tunic with a notch neck and side slits, over straight trousers in the same cloth.",
-    pieces:"Tunic + trousers", fabric:"Wine textured cotton" },
+  { id:"onyx", n:"M1", name:"Onyx", g:"men", img:"onyx", alt:["noir_neck"],
+    d:"A long-sleeved tunic with a notch neck and side slits, over relaxed drawstring trousers in the same black cloth.",
+    pieces:"Tunic + trousers", fabric:"Black cotton" },
   { id:"stillwater", n:"M2", name:"Stillwater", g:"men", img:"white", alt:["d_placket"],
     d:"A short-sleeved stand-collar shirt with a half placket, worn with pressed straight trousers.",
     pieces:"Stand-collar shirt + trousers", fabric:"White linen" },
