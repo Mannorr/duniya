@@ -19,6 +19,10 @@ const CONFIG = {
   SEND_CUSTOMER_CONFIRMATION: true,   // only sent when the customer gives an email
   DEFAULT_COUNTRY_CODE: "234",        // used to turn 0803… into 234803… for WhatsApp
   DUPLICATE_WINDOW_SECONDS: 120,      // same phone within this window = same enquiry
+  MIN_FILL_MS: 2500,                  // forms sent faster than this are treated as bots
+  MAX_PER_10_MIN: 30,                 // site-wide cap, protects your inbox and email quota
+  CONFIRM_ONCE_PER_EMAIL_HOURS: 6,    // a customer address gets at most one confirmation per 6 hours (Google cache maximum)
+  RESERVE_EMAIL_QUOTA: 10,            // keep this many daily emails for your own notifications
   STATUSES: ["New", "Contacted", "Measuring", "In production", "Delivered", "Closed"]
 };
 
@@ -72,8 +76,9 @@ function doGet() {
 function doPost(e) {
   const p = (e && e.parameter) || {};
 
-  // Spam trap: real people never fill the hidden "website" field.
+  // Spam traps: real people never fill the hidden "website" field, and take more than a moment.
   if (p.website) return json({ ok: true, ref: "" });
+  if (p.t && Number(p.t) < CONFIG.MIN_FILL_MS) return json({ ok: true, ref: "" });
 
   const name = clean(p.name, 80);
   const phoneRaw = clean(p.phone, 30);
@@ -93,6 +98,14 @@ function doPost(e) {
     const cache = CacheService.getScriptCache();
     const seen = cache.get("ph_" + phone);
     if (seen) return json({ ok: true, ref: seen, duplicate: true });
+
+    // Site-wide flood protection.
+    const bucket = "rate_" + Math.floor(Date.now() / 600000);
+    const count = Number(cache.get(bucket) || 0) + 1;
+    cache.put(bucket, String(count), 700);
+    if (count > CONFIG.MAX_PER_10_MIN) {
+      return json({ ok: false, error: "We're receiving a lot of enquiries right now. Please message us on WhatsApp instead." });
+    }
 
     const sh = sheet();
     const ref = nextRef(sh);
@@ -123,8 +136,14 @@ function doPost(e) {
     cache.put("ph_" + phone, ref, CONFIG.DUPLICATE_WINDOW_SECONDS);
 
     try { notifyHouse(data, phone, waUrl); } catch (err) { console.error("notify", err); }
-    if (CONFIG.SEND_CUSTOMER_CONFIRMATION && data.email) {
-      try { confirmCustomer(data); } catch (err) { console.error("confirm", err); }
+    // Customer confirmation: at most once per 6 hours per address, and never at the cost of your own notifications.
+    const emKey = "em_" + Utilities.base64EncodeWebSafe(data.email.toLowerCase());
+    if (CONFIG.SEND_CUSTOMER_CONFIRMATION && data.email && !cache.get(emKey)
+        && MailApp.getRemainingDailyQuota() > CONFIG.RESERVE_EMAIL_QUOTA) {
+      try {
+        confirmCustomer(data);
+        cache.put(emKey, "1", Math.min(21600, CONFIG.CONFIRM_ONCE_PER_EMAIL_HOURS * 3600));
+      } catch (err) { console.error("confirm", err); }
     }
     return json({ ok: true, ref: ref });
   } finally {

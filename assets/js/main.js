@@ -85,7 +85,7 @@ const LOOKS = [
   const homeRail = $("#homeRail");
   if (homeRail){
     homeRail.innerHTML = LOOKS.filter(l => l.g !== "footwear").map(l => `
-      <a href="collection.html#${l.id}">
+      <a href="collection#${l.id}">
         <img src="${IMG}${l.img}.jpg" alt="${l.name}: ${l.pieces}" loading="lazy">
         <span class="label">Look ${l.n} · ${l.g === "men" ? "Men" : "Women"}</span>
         <h3>${l.name}</h3>
@@ -139,7 +139,7 @@ const LOOKS = [
       $("#lbDesc").textContent = l.d;
       $("#lbPieces").textContent = l.pieces;
       $("#lbFabric").textContent = l.fabric;
-      $("#lbEnquire").href = "order.html?look=" + encodeURIComponent(l.name) + "#enquire";
+      $("#lbEnquire").href = "order?look=" + encodeURIComponent(l.name) + "#enquire";
       lb.hidden = false; document.body.style.overflow = "hidden";
       history.replaceState(null, "", "#" + l.id);
       $("#lbClose").focus();
@@ -173,7 +173,7 @@ const LOOKS = [
 
   /* WhatsApp */
   function enquireHref(lookName){
-    if (!WHATSAPP_NUMBER) return "order.html" + (lookName ? "?look=" + encodeURIComponent(lookName) : "") + "#enquire";
+    if (!WHATSAPP_NUMBER) return "order" + (lookName ? "?look=" + encodeURIComponent(lookName) : "") + "#enquire";
     const msg = lookName ? `Hello DÚNÍYÀ, I'd like to order the ${lookName} look.` : "Hello DÚNÍYÀ, I'd like to place an order.";
     return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
   }
@@ -202,6 +202,7 @@ const LOOKS = [
       + `<label class="opt"><input type="checkbox" name="look" value="Not sure yet"><span>Help me choose</span></label>`;
 
     const status = $("#f-status"), btn = $("#f-submit");
+    let formStart = performance.now();
     const setErr = (id, msg) => { const f = $("#f-" + id).closest(".field"); f.classList.toggle("bad", !!msg); $("#e-" + id).textContent = msg || ""; };
     const validate = () => {
       const v = id => $("#f-" + id).value.trim();
@@ -231,7 +232,8 @@ const LOOKS = [
       const body = new URLSearchParams();
       for (const [k, v] of fd) if (k !== "look") body.append(k, v);
       body.append("looks", fd.getAll("look").join(", "));
-      body.append("page", "order.html" + (wanted ? "?look=" + wanted : ""));
+      body.append("page", "order" + (wanted ? "?look=" + wanted : ""));
+      body.append("t", String(Math.round(performance.now() - formStart)));
 
       btn.disabled = true; btn.textContent = "Sending…";
       let result = null;

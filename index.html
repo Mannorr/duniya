@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src https://script.google.com https://script.googleusercontent.com; form-action 'self'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <title>DÚNÍYÀ</title>
 <meta name="description" content="DÚNÍYÀ is a Christian clothing house in Lagos making Afro-modern, minimal tailoring in natural fabrics, made to measure.">
 <meta name="theme-color" content="#0A2A20">
@@ -10,25 +12,24 @@
 <meta property="og:description" content="DÚNÍYÀ is a Christian clothing house in Lagos making Afro-modern, minimal tailoring in natural fabrics, made to measure.">
 <meta property="og:image" content="assets/img/photos/hero.jpg">
 <link rel="icon" type="image/png" href="assets/img/logo/seal-cream.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Cormorant+Garamond:ital,wght@1,400;1,500&family=Jost:wght@300;400;500&display=swap">
+<link rel="preload" href="assets/fonts/gloock-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/jost-latin-300-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
 <header class="nav">
   <div class="wrap">
     <nav class="nav-links nav-left label" aria-label="Primary">
-      <a href="house.html">The House</a>
-      <a href="collection.html">Collection</a>
-      <a href="lookbook.html">Lookbook</a>
+      <a href="house">The House</a>
+      <a href="collection">Collection</a>
+      <a href="lookbook">Lookbook</a>
     </nav>
-    <a class="brand" href="index.html" aria-label="Dúníyà home"><img src="assets/img/logo/seal-cream.png" alt="Dúníyà"></a>
+    <a class="brand" href="./" aria-label="Dúníyà home"><img src="assets/img/logo/seal-cream.png" alt="Dúníyà"></a>
     <div class="nav-right">
       <nav class="nav-links label" aria-label="Secondary">
-        <a href="craft.html">Craft</a>
+        <a href="craft">Craft</a>
       </nav>
-      <a class="btn" href="order.html">Order</a>
+      <a class="btn" href="order">Order</a>
       <button class="menu-btn" id="menuOpen" aria-label="Open menu"><span></span><span></span><span></span></button>
     </div>
   </div>
@@ -40,12 +41,12 @@
     <button class="close" id="menuClose" aria-label="Close menu">×</button>
   </div>
   <nav>
-    <a href="index.html" aria-current="page">Home</a>
-    <a href="house.html">The House</a>
-    <a href="collection.html">Collection</a>
-    <a href="lookbook.html">Lookbook</a>
-    <a href="craft.html">Craft</a>
-    <a href="order.html">Order</a>
+    <a href="./" aria-current="page">Home</a>
+    <a href="house">The House</a>
+    <a href="collection">Collection</a>
+    <a href="lookbook">Lookbook</a>
+    <a href="craft">Craft</a>
+    <a href="order">Order</a>
   </nav>
   <div class="overlay-foot label"><span>Lagos, Nigeria</span><span>Made to measure</span></div>
 </div>
@@ -68,7 +69,7 @@
         <p>DÚNÍYÀ means the whole world. We make Afro-modern, minimal tailoring in natural fabrics, cut to the measurements of the person who will wear it.</p>
         <p>You will know our clothes by silhouette, fabric and proportion, not by a logo.</p>
       </div>
-      <a class="arrow" href="house.html">Enter the house</a>
+      <a class="arrow" href="house">Enter the house</a>
     </div>
     <figure class="st-a rv zoom"><img src="assets/img/photos/plat4.jpg" alt="Portrait of a model in the platinum linen dress, arms folded" loading="lazy"><figcaption class="cap"><b>06</b>Platinum</figcaption></figure>
     <figure class="st-b rv"><img src="assets/img/photos/noir_shirt.jpg" alt="Close view of a man adjusting the collar of a black textured camp-collar shirt" loading="lazy"></figure>
@@ -83,7 +84,7 @@
     </div>
     <div style="display:flex;gap:24px;align-items:center;flex-wrap:wrap">
       <div class="rail-ctrl" data-rail="homeRail"><button data-dir="prev" aria-label="Previous looks">←</button><button data-dir="next" aria-label="Next looks">→</button></div>
-      <a class="arrow" href="collection.html">View all</a>
+      <a class="arrow" href="collection">View all</a>
     </div>
   </div>
   <div class="rail" id="homeRail"></div>
@@ -96,7 +97,7 @@
     <h2>Same house.<br><em class="c">Different expression.</em></h2>
     <p style="color:var(--mute-light);max-width:44ch">Men and women in one world. Different garments, different personalities, one way of dressing with intention.</p>
     <img class="inset" src="assets/img/photos/pair.jpg" alt="A woman in a carmine top and a man in a burnt-orange tunic standing together" loading="lazy">
-    <a class="arrow" href="lookbook.html">Open the lookbook</a>
+    <a class="arrow" href="lookbook">Open the lookbook</a>
   </div>
 </section>
 
@@ -106,7 +107,7 @@
       <span class="label">Craft</span>
       <h2 class="pull">Made, <em>not</em> merely styled.</h2>
       <p style="color:var(--mute-dark);max-width:44ch">Topstitched pockets, shaped facings, clean hems. The small decisions you only notice up close.</p>
-      <a class="arrow" href="craft.html">See the details</a>
+      <a class="arrow" href="craft">See the details</a>
     </div>
     <div class="mosaic rv">
       <figure class="m1 zoom"><img src="assets/img/photos/cafe_pocket.jpg" alt="Close-up of a topstitched patch pocket on the café top" loading="lazy"></figure>
@@ -127,17 +128,17 @@
     <span class="label">From the ground up</span>
     <h2 style="color:var(--forest)">Finished <em class="c">to the floor.</em></h2>
     <p style="color:var(--mute-dark);max-width:44ch">Flat leather sandals in olive, black and woven stripes, chosen to sit with the collection as one complete look.</p>
-    <a class="arrow" href="collection.html#olive-slide">See footwear</a>
+    <a class="arrow" href="collection#olive-slide">See footwear</a>
   </div>
 </section>
 
 <section class="night sec">
   <div class="wrap">
     <div class="doors">
-      <a class="door rv" href="house.html"><img src="assets/img/photos/plat_front.jpg" alt="" loading="lazy"><span><span class="label">I</span><h3>The House</h3></span></a>
-      <a class="door rv" href="collection.html"><img src="assets/img/photos/onyx.jpg" alt="" loading="lazy"><span><span class="label">II</span><h3>Collection</h3></span></a>
-      <a class="door rv" href="lookbook.html"><img src="assets/img/photos/moss.jpg" alt="" loading="lazy"><span><span class="label">III</span><h3>Lookbook</h3></span></a>
-      <a class="door rv" href="craft.html"><img src="assets/img/photos/lumen.jpg" alt="" loading="lazy"><span><span class="label">IV</span><h3>Craft</h3></span></a>
+      <a class="door rv" href="house"><img src="assets/img/photos/plat_front.jpg" alt="" loading="lazy"><span><span class="label">I</span><h3>The House</h3></span></a>
+      <a class="door rv" href="collection"><img src="assets/img/photos/onyx.jpg" alt="" loading="lazy"><span><span class="label">II</span><h3>Collection</h3></span></a>
+      <a class="door rv" href="lookbook"><img src="assets/img/photos/moss.jpg" alt="" loading="lazy"><span><span class="label">III</span><h3>Lookbook</h3></span></a>
+      <a class="door rv" href="craft"><img src="assets/img/photos/lumen.jpg" alt="" loading="lazy"><span><span class="label">IV</span><h3>Craft</h3></span></a>
     </div>
   </div>
 </section>
@@ -145,7 +146,7 @@
 <section class="forest sec grain">
   <div class="wrap cta-band">
     <h2>Made for you,<br><em class="c">to measure.</em></h2>
-    <a class="btn" href="order.html">How to order</a>
+    <a class="btn" href="order">How to order</a>
   </div>
 </section>
 </main>
@@ -154,9 +155,9 @@
     <div class="foot-top">
       <img class="seal" src="assets/img/logo/seal-cream.png" alt="">
       <nav class="foot-nav" aria-label="Footer">
-        <a href="house.html">The House</a><a href="lookbook.html">Lookbook</a>
-        <a href="collection.html">Collection</a><a href="craft.html">Craft</a>
-        <a href="order.html">Order</a><a href="order.html#faq">Questions</a>
+        <a href="house">The House</a><a href="lookbook">Lookbook</a>
+        <a href="collection">Collection</a><a href="craft">Craft</a>
+        <a href="order">Order</a><a href="order#faq">Questions</a>
       </nav>
       <div class="foot-contact">
         <span class="label" style="color:var(--copper-soft)">Lagos, Nigeria</span>

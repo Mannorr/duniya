@@ -1,3 +1,11 @@
+/* Brand fonts, served from this site (SIL Open Font License, see assets/fonts/LICENSES.txt) */
+@font-face{font-family:"Gloock";font-style:normal;font-weight:400;font-display:swap;src:url("../fonts/gloock-latin-400-normal.woff2") format("woff2")}
+@font-face{font-family:"Jost";font-style:normal;font-weight:300;font-display:swap;src:url("../fonts/jost-latin-300-normal.woff2") format("woff2")}
+@font-face{font-family:"Jost";font-style:normal;font-weight:400;font-display:swap;src:url("../fonts/jost-latin-400-normal.woff2") format("woff2")}
+@font-face{font-family:"Jost";font-style:normal;font-weight:500;font-display:swap;src:url("../fonts/jost-latin-500-normal.woff2") format("woff2")}
+@font-face{font-family:"Cormorant Garamond";font-style:italic;font-weight:400;font-display:swap;src:url("../fonts/cormorant-garamond-latin-400-italic.woff2") format("woff2")}
+@font-face{font-family:"Cormorant Garamond";font-style:italic;font-weight:500;font-display:swap;src:url("../fonts/cormorant-garamond-latin-500-italic.woff2") format("woff2")}
+
 /* DÚNÍYÀ — shared styles for every page.
    Layout idea: forest nights, cream days, copper as the thread; photography leads every page. */
 :root{

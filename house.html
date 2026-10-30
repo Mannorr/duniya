@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src https://script.google.com https://script.googleusercontent.com; form-action 'self'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <title>The House · DÚNÍYÀ</title>
 <meta name="description" content="Why DÚNÍYÀ exists: its name, values, origin and worldview.">
 <meta name="theme-color" content="#0A2A20">
@@ -10,25 +12,24 @@
 <meta property="og:description" content="Why DÚNÍYÀ exists: its name, values, origin and worldview.">
 <meta property="og:image" content="assets/img/photos/plat4.jpg">
 <link rel="icon" type="image/png" href="assets/img/logo/seal-cream.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Cormorant+Garamond:ital,wght@1,400;1,500&family=Jost:wght@300;400;500&display=swap">
+<link rel="preload" href="assets/fonts/gloock-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/jost-latin-300-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
 <header class="nav">
   <div class="wrap">
     <nav class="nav-links nav-left label" aria-label="Primary">
-      <a href="house.html" aria-current="page">The House</a>
-      <a href="collection.html">Collection</a>
-      <a href="lookbook.html">Lookbook</a>
+      <a href="house" aria-current="page">The House</a>
+      <a href="collection">Collection</a>
+      <a href="lookbook">Lookbook</a>
     </nav>
-    <a class="brand" href="index.html" aria-label="Dúníyà home"><img src="assets/img/logo/seal-cream.png" alt="Dúníyà"></a>
+    <a class="brand" href="./" aria-label="Dúníyà home"><img src="assets/img/logo/seal-cream.png" alt="Dúníyà"></a>
     <div class="nav-right">
       <nav class="nav-links label" aria-label="Secondary">
-        <a href="craft.html">Craft</a>
+        <a href="craft">Craft</a>
       </nav>
-      <a class="btn" href="order.html">Order</a>
+      <a class="btn" href="order">Order</a>
       <button class="menu-btn" id="menuOpen" aria-label="Open menu"><span></span><span></span><span></span></button>
     </div>
   </div>
@@ -40,12 +41,12 @@
     <button class="close" id="menuClose" aria-label="Close menu">×</button>
   </div>
   <nav>
-    <a href="index.html">Home</a>
-    <a href="house.html" aria-current="page">The House</a>
-    <a href="collection.html">Collection</a>
-    <a href="lookbook.html">Lookbook</a>
-    <a href="craft.html">Craft</a>
-    <a href="order.html">Order</a>
+    <a href="./">Home</a>
+    <a href="house" aria-current="page">The House</a>
+    <a href="collection">Collection</a>
+    <a href="lookbook">Lookbook</a>
+    <a href="craft">Craft</a>
+    <a href="order">Order</a>
   </nav>
   <div class="overlay-foot label"><span>Lagos, Nigeria</span><span>Made to measure</span></div>
 </div>
@@ -140,7 +141,7 @@
 <section class="day sec">
   <div class="wrap cta-band">
     <h2 style="color:var(--forest)">See what the house <em class="c">makes.</em></h2>
-    <a class="btn" href="collection.html">View the collection</a>
+    <a class="btn" href="collection">View the collection</a>
   </div>
 </section>
 </main>
@@ -149,9 +150,9 @@
     <div class="foot-top">
       <img class="seal" src="assets/img/logo/seal-cream.png" alt="">
       <nav class="foot-nav" aria-label="Footer">
-        <a href="house.html">The House</a><a href="lookbook.html">Lookbook</a>
-        <a href="collection.html">Collection</a><a href="craft.html">Craft</a>
-        <a href="order.html">Order</a><a href="order.html#faq">Questions</a>
+        <a href="house">The House</a><a href="lookbook">Lookbook</a>
+        <a href="collection">Collection</a><a href="craft">Craft</a>
+        <a href="order">Order</a><a href="order#faq">Questions</a>
       </nav>
       <div class="foot-contact">
         <span class="label" style="color:var(--copper-soft)">Lagos, Nigeria</span>
