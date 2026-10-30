@@ -5,7 +5,7 @@
 const WHATSAPP_NUMBER = "2348159019324";
 
 /* Paste the Google Apps Script Web app URL here (ends in /exec). See apps-script/README.md. */
-const FORM_ENDPOINT = "";
+const FORM_ENDPOINT = "https://script.google.com/macros/s/AKfycbzrWMj3V9RbHdR59i9sV_Fo5OOWrcMYxI0w2K0JbP2zN8GOHXRNvcK93bIL374xRwg0Zw/exec";
 
 const IMG = "assets/img/photos/";
 
