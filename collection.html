@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Collection · DÚNÍYÀ</title>
+<meta name="description" content="Every look in the first DÚNÍYÀ collection, for women and men, made to measure.">
+<meta name="theme-color" content="#0A2A20">
+<meta property="og:title" content="Collection · DÚNÍYÀ">
+<meta property="og:description" content="Every look in the first DÚNÍYÀ collection, for women and men, made to measure.">
+<meta property="og:image" content="assets/img/photos/plat_front.jpg">
+<link rel="icon" type="image/png" href="assets/img/logo/seal-cream.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Cormorant+Garamond:ital,wght@1,400;1,500&family=Jost:wght@300;400;500&display=swap">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <nav class="nav-links nav-left label" aria-label="Primary">
+      <a href="house.html">The House</a>
+      <a href="collection.html" aria-current="page">Collection</a>
+      <a href="lookbook.html">Lookbook</a>
+    </nav>
+    <a class="brand" href="index.html" aria-label="Dúníyà home"><img src="assets/img/logo/seal-cream.png" alt="Dúníyà"></a>
+    <div class="nav-right">
+      <nav class="nav-links label" aria-label="Secondary">
+        <a href="craft.html">Craft</a>
+      </nav>
+      <a class="btn" href="order.html">Order</a>
+      <button class="menu-btn" id="menuOpen" aria-label="Open menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="overlay" id="overlay" hidden role="dialog" aria-label="Menu">
+  <div class="overlay-top">
+    <img src="assets/img/logo/monogram-copper.png" alt="Dúníyà" style="width:auto">
+    <button class="close" id="menuClose" aria-label="Close menu">×</button>
+  </div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="house.html">The House</a>
+    <a href="collection.html" aria-current="page">Collection</a>
+    <a href="lookbook.html">Lookbook</a>
+    <a href="craft.html">Craft</a>
+    <a href="order.html">Order</a>
+  </nav>
+  <div class="overlay-foot label"><span>Lagos, Nigeria</span><span>Made to measure</span></div>
+</div>
+
+<main>
+<section class="col-hero night grain">
+  <div class="wrap">
+    <div>
+      <span class="label">The first collection</span>
+      <h1 class="ph-title" style="margin-top:18px">Collection<em> 01</em></h1>
+    </div>
+    <div style="display:grid;gap:24px">
+      <p class="ph-lede">Relaxed silhouettes in natural fabric, made to your measurements. Hover a look for another angle; open it for every detail.</p>
+      <div class="counts">
+        <div><strong>7</strong><span class="label">Women</span></div>
+        <div><strong>4</strong><span class="label">Men</span></div>
+        <div><strong>2</strong><span class="label">Footwear</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="toolbar">
+  <div class="wrap">
+    <div class="filters" role="group" aria-label="Filter looks">
+      <button class="chip" id="f-all" data-f="all" aria-pressed="true">All</button>
+      <button class="chip" id="f-women" data-f="women" aria-pressed="false">Women</button>
+      <button class="chip" id="f-men" data-f="men" aria-pressed="false">Men</button>
+      <button class="chip" id="f-foot" data-f="footwear" aria-pressed="false">Footwear</button>
+    </div>
+    <div style="display:flex;gap:16px;align-items:center">
+      <span class="label" style="color:var(--mute-light)"><span id="countShown">13</span> shown</span>
+      <div class="view-toggle" role="group" aria-label="Layout">
+        <button class="chip" id="v-edit" data-view="editorial" aria-pressed="true">Editorial</button>
+        <button class="chip" id="v-grid" data-view="compact" aria-pressed="false">Grid</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="night">
+  <div class="wrap"><div class="lookgrid" id="lookgrid"></div></div>
+</section>
+
+<div class="band" aria-hidden="true"><div class="band-track">
+  <span>Linen</span><i>journey</i><span>Cotton</span><i>creation</i><span>Poplin</span><i>craft</i><span>Jonkoso</span><i>light</i><span>Chambray</span><i>the whole world</i>
+</div></div>
+<section class="day sec">
+  <div class="wrap cta-band">
+    <h2 style="color:var(--forest)">Found your look? <em class="c">Send us its name.</em></h2>
+    <a class="btn" data-wa="" href="order.html">Order on WhatsApp</a>
+  </div>
+</section>
+
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-labelledby="lbName">
+  <button class="lb-close" id="lbClose" aria-label="Close">×</button>
+  <div class="lb-media">
+    <div class="lb-main"><img id="lbImg" src="" alt=""></div>
+    <div class="lb-thumbs" id="lbThumbs"></div>
+  </div>
+  <div class="lb-info">
+    <span class="label" id="lbNum"></span>
+    <h2 id="lbName"></h2>
+    <p id="lbDesc"></p>
+    <dl>
+      <dt>Pieces</dt><dd id="lbPieces"></dd>
+      <dt>Fabric</dt><dd id="lbFabric"></dd>
+      <dt>Fit</dt><dd>Made to your measurements</dd>
+    </dl>
+    <a class="btn" id="lbEnquire" href="order.html">Enquire about this look</a>
+    <div class="lb-nav"><button id="lbPrev">← Previous</button><button id="lbNext">Next →</button></div>
+  </div>
+</div>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <img class="seal" src="assets/img/logo/seal-cream.png" alt="">
+      <nav class="foot-nav" aria-label="Footer">
+        <a href="house.html">The House</a><a href="lookbook.html">Lookbook</a>
+        <a href="collection.html">Collection</a><a href="craft.html">Craft</a>
+        <a href="order.html">Order</a><a href="order.html#faq">Questions</a>
+      </nav>
+      <div class="foot-contact">
+        <span class="label" style="color:var(--copper-soft)">Lagos, Nigeria</span>
+        <span>Orders on WhatsApp Business</span>
+        <span>Made to measure</span>
+      </div>
+    </div>
+    <img class="foot-wm" src="assets/img/logo/wordmark-copper.png" alt="Dúníyà">
+    <div class="foot-row label">
+      <span>A Christian clothing house</span>
+      <span>© 2026 DÚNÍYÀ</span>
+    </div>
+  </div>
+</footer>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
