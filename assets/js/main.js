@@ -10,7 +10,7 @@ const FORM_ENDPOINT = "https://script.google.com/macros/s/AKfycbzrWMj3V9RbHdR59i
 const IMG = "assets/img/photos/";
 
 /* The collection. `img` is the main photo; `alt` images show on hover and in the detail view. */
-const LAYOUT = {"platinum": "6", "ember": "3", "moss": "3 drop", "cafe": "4 drop", "lumen": "6 drop", "tide": "4", "harvest": "4 drop", "onyx": "6", "stillwater": "4", "vine": "4 drop", "noir": "4", "olive-slide": "6", "stripe-thong": "6 drop"};
+const LAYOUT = {"platinum": "6", "ember": "3", "moss": "3 drop", "cafe": "4 drop", "lumen": "6 drop", "tide": "4", "harvest": "4 drop", "onyx": "6", "stillwater": "4", "vine": "4 drop", "noir": "4", "carmine": "6", "kiln": "6 drop", "olive-slide": "6", "stripe-thong": "6 drop"};
 
 const LOOKS = [
   { id:"platinum", n:"06", name:"Platinum", g:"women", img:"plat_front", alt:["plat6","plat3","plat4","plat5"],
@@ -46,6 +46,12 @@ const LOOKS = [
   { id:"noir", n:"M4", name:"Noir", g:"men", img:"noir_shirt", alt:["trio"],
     d:"A camp-collar shirt in a textured black weave, open at the neck and relaxed through the body.",
     pieces:"Camp-collar shirt", fabric:"Black textured weave" },
+  { id:"carmine", n:"03", name:"Carmine", g:"women", img:"pair", alt:["trio"],
+    d:"A boxy cap-sleeve top with a notch neck in carmine, worn over wide, washed platinum trousers.",
+    pieces:"V-neck top + wide trousers", fabric:"Japanese carmine cotton · platinum hessian-linen" },
+  { id:"kiln", n:"M5", name:"Kiln", g:"men", img:"pair", alt:[],
+    d:"A loose burnt-orange tunic with a notch neck and dropped shoulders, over cream drawstring trousers.",
+    pieces:"Tunic + drawstring trousers", fabric:"Burnt-orange cotton · cream textured weave" },
   { id:"olive-slide", n:"F1", name:"Olive cut-out", g:"footwear", img:"sandal_olive", alt:["lime_sandal"],
     d:"A flat leather slide with a sweeping cut-out upper and a toe loop.",
     pieces:"Sandal", fabric:"Olive leather" },
@@ -158,6 +164,10 @@ const LOOKS = [
     const hash = location.hash.slice(1);
     const idx = visible.findIndex(l => l.id === hash);
     if (idx > -1) openLB(idx);
+    window.addEventListener("hashchange", () => {
+      const i = visible.findIndex(l => l.id === location.hash.slice(1));
+      if (i > -1 && lb.hidden) openLB(i);
+    });
   }
 
   /* craft hotspots */
@@ -196,8 +206,9 @@ const LOOKS = [
   const form = $("#eform");
   if (form){
     const wanted = (new URLSearchParams(location.search).get("look") || "").toLowerCase();
+    const wantedSet = new Set(wanted.split(",").map(w => w.trim()).filter(Boolean));
     $("#f-looks").innerHTML = LOOKS.filter(l => l.g !== "footwear").map(l =>
-      `<label class="opt"><input type="checkbox" name="look" value="${l.name}"${l.name.toLowerCase() === wanted ? " checked" : ""}><span>${l.name}</span></label>`).join("")
+      `<label class="opt"><input type="checkbox" name="look" value="${l.name}"${wantedSet.has(l.name.toLowerCase()) ? " checked" : ""}><span>${l.name}</span></label>`).join("")
       + `<label class="opt"><input type="checkbox" name="look" value="Footwear"><span>Footwear</span></label>`
       + `<label class="opt"><input type="checkbox" name="look" value="Not sure yet"><span>Help me choose</span></label>`;
 

@@ -76,18 +76,33 @@
   </div>
 </section>
 
-<section class="night sec grain">
-  <div class="wrap rail-head">
-    <div>
-      <span class="label">The first collection</span>
-      <h2 style="margin-top:16px">The Looks</h2>
-    </div>
-    <div style="display:flex;gap:24px;align-items:center;flex-wrap:wrap">
-      <div class="rail-ctrl" data-rail="homeRail"><button data-dir="prev" aria-label="Previous looks">←</button><button data-dir="next" aria-label="Next looks">→</button></div>
-      <a class="arrow" href="collection">View all</a>
-    </div>
+
+<section class="salon" data-salon aria-label="The looks. Drag to wander, select a look to step closer.">
+  <div class="sl-stage">
+    <div class="sl-floor"></div>
+    <div class="sl-layer back" aria-hidden="true"></div>
+    <div class="sl-layer mid"></div>
+    <div class="sl-layer front" aria-hidden="true"></div>
   </div>
-  <div class="rail" id="homeRail"></div>
+  <div class="sl-top"><span class="label">The first collection</span><a class="arrow" href="collection" style="color:var(--forest)">View all looks</a></div>
+  <p class="sl-hint">Drag to wander · Select a look to step closer</p>
+  <div class="sl-closer" hidden role="dialog" aria-modal="true" aria-labelledby="slc-title">
+    <div class="slc-text">
+      <span class="label slc-label"></span>
+      <h2 id="slc-title"></h2>
+      <p class="slc-line"></p>
+      <a class="arrow slc-view" href="collection">View the look</a>
+      <div class="slc-angles"></div>
+      <nav class="slc-nav" aria-label="Other looks"><button class="slc-prev" type="button">← <span></span></button><span class="slc-count"></span><button class="slc-next" type="button"><span></span> →</button></nav>
+    </div>
+    <figure class="slc-fig"><img src="" alt=""><span class="sl-shadow"></span></figure>
+    <aside class="slc-panel">
+      <div class="slc-head"><span class="slc-count-pieces"></span><button class="slc-close" type="button">Close ×</button></div>
+      <ul class="slc-list"></ul>
+      <a class="btn slc-enquire" href="order#enquire">Enquire about this look</a>
+      <p class="slc-note">Made to your measurements. We reply by WhatsApp or phone call.</p>
+    </aside>
+  </div>
 </section>
 
 <section class="feature forest grain">
@@ -173,5 +188,6 @@
   </div>
 </footer>
 <script src="assets/js/main.js"></script>
+<script src="assets/js/salon.js"></script>
 </body>
 </html>

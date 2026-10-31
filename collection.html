@@ -52,17 +52,45 @@
 </div>
 
 <main>
+
+<section class="salon" data-salon aria-label="The looks. Drag to wander, select a look to step closer.">
+  <div class="sl-stage">
+    <div class="sl-floor"></div>
+    <div class="sl-layer back" aria-hidden="true"></div>
+    <div class="sl-layer mid"></div>
+    <div class="sl-layer front" aria-hidden="true"></div>
+  </div>
+  <div class="sl-top"><h1 class="sl-title">Collection 01</h1><span class="label">Women &amp; men · 13 looks</span></div>
+  <p class="sl-hint">Drag to wander · Select a look to step closer</p>
+  <div class="sl-closer" hidden role="dialog" aria-modal="true" aria-labelledby="slc-title">
+    <div class="slc-text">
+      <span class="label slc-label"></span>
+      <h2 id="slc-title"></h2>
+      <p class="slc-line"></p>
+      <a class="arrow slc-view" href="collection">View the look</a>
+      <div class="slc-angles"></div>
+      <nav class="slc-nav" aria-label="Other looks"><button class="slc-prev" type="button">← <span></span></button><span class="slc-count"></span><button class="slc-next" type="button"><span></span> →</button></nav>
+    </div>
+    <figure class="slc-fig"><img src="" alt=""><span class="sl-shadow"></span></figure>
+    <aside class="slc-panel">
+      <div class="slc-head"><span class="slc-count-pieces"></span><button class="slc-close" type="button">Close ×</button></div>
+      <ul class="slc-list"></ul>
+      <a class="btn slc-enquire" href="order#enquire">Enquire about this look</a>
+      <p class="slc-note">Made to your measurements. We reply by WhatsApp or phone call.</p>
+    </aside>
+  </div>
+</section>
 <section class="col-hero night grain">
   <div class="wrap">
     <div>
-      <span class="label">The first collection</span>
-      <h1 class="ph-title" style="margin-top:18px">Collection<em> 01</em></h1>
+      <span class="label">The full collection</span>
+      <h2 class="ph-title" style="margin-top:18px">Every <em>look.</em></h2>
     </div>
     <div style="display:grid;gap:24px">
       <p class="ph-lede">Relaxed silhouettes in natural fabric, made to your measurements. Hover a look for another angle; open it for every detail.</p>
       <div class="counts">
-        <div><strong>7</strong><span class="label">Women</span></div>
-        <div><strong>4</strong><span class="label">Men</span></div>
+        <div><strong>8</strong><span class="label">Women</span></div>
+        <div><strong>5</strong><span class="label">Men</span></div>
         <div><strong>2</strong><span class="label">Footwear</span></div>
       </div>
     </div>
@@ -78,7 +106,7 @@
       <button class="chip" id="f-foot" data-f="footwear" aria-pressed="false">Footwear</button>
     </div>
     <div style="display:flex;gap:16px;align-items:center">
-      <span class="label" style="color:var(--mute-light)"><span id="countShown">13</span> shown</span>
+      <span class="label" style="color:var(--mute-light)"><span id="countShown">15</span> shown</span>
       <div class="view-toggle" role="group" aria-label="Layout">
         <button class="chip" id="v-edit" data-view="editorial" aria-pressed="true">Editorial</button>
         <button class="chip" id="v-grid" data-view="compact" aria-pressed="false">Grid</button>
@@ -144,5 +172,6 @@
   </div>
 </footer>
 <script src="assets/js/main.js"></script>
+<script src="assets/js/salon.js"></script>
 </body>
 </html>
