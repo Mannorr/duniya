@@ -1,42 +1,40 @@
 /* DÚNÍYÀ — the Salon
    A field of cutout figures at three depths. Drag (or swipe, or use the arrow keys) to wander;
    select a figure in the sharp middle row to step closer to that look.
-   Needs LOOKS from main.js (load this file after it). */
+   Needs PUBLISHED and helpers from main.js (load this file after it). */
 
 (function(){
   const root = document.querySelector("[data-salon]");
-  if (!root || typeof LOOKS === "undefined") return;
+  if (!root || typeof PUBLISHED === "undefined") return;
 
   const CUT = "assets/img/cutouts/cut-";
   /* cutout id → relative height (1 = tallest standing figure) */
   const H = { 2:.878, 3:.973, 6:.862, 7:.993, 8:1, 14:.982, 16:.928, 18:.981, 19:.932, 23:.953,
               28:.975, 29:.91, 30:.904, 35:.911, 38:.913, 46:.901, 47:.881, 51:.928, 55:.858, 64:.939, 75:.672 };
 
-  /* Each entry in the middle row. `looks` refers to ids in LOOKS (main.js). */
+  /* Each figure in the middle row, and the catalogue products it shows (ids from PRODUCTS in main.js).
+     Hidden products are left out automatically; a figure with no published products is skipped. */
   const ENTRIES = [
-    { looks:["platinum"], cuts:[8, 2, 3, 6, 7] },
-    { looks:["onyx"], cuts:[35] },
-    { looks:["ember"], cuts:[19, 18, 23] },
-    { looks:["vine"], cuts:[64] },
-    { looks:["cafe"], cuts:[29, 28, 30] },
-    { looks:["lumen", "stillwater"], cuts:[55], title:"Lumen & Stillwater",
-      line:"Same house, different expression. A white two-pocket dress beside a stand-collar shirt and pressed trousers." },
-    { looks:["moss"], cuts:[14, 16] },
-    { looks:["harvest"], cuts:[46, 47, 75] },
-    { looks:["carmine", "kiln"], cuts:[38], title:"Carmine & Kiln",
-      line:"Carmine cotton and burnt orange, side by side. Two warm colours, one way of dressing." },
-    { looks:["tide"], cuts:[51] }
-  ];
+    { ids:["platinum-dress"], cuts:[8, 2, 3, 6, 7] },
+    { ids:["black-set"], cuts:[35] },
+    { ids:["coral-dress"], cuts:[19, 18, 23] },
+    { ids:["olive-shirt", "cream-trousers"], cuts:[64] },
+    { ids:["cafe-shirt", "platinum-trousers"], cuts:[29, 28, 30] },
+    { ids:["white-dress", "white-set"], cuts:[55] },
+    { ids:["moss-set"], cuts:[14, 16] },
+    { ids:["mustard-shirt", "lime-trousers"], cuts:[46, 47, 75] },
+    { ids:["carmine-top", "platinum-trousers", "orange-tunic", "cream-trousers"], cuts:[38] },
+    { ids:["striped-top", "white-trousers"], cuts:[51] }
+  ]
+    .map(e => ({ ...e, data: e.ids.map(productById).filter(Boolean) }))
+    .filter(e => e.data.length);
+  ENTRIES.forEach(e => {
+    const n = e.data.map(p => p.name);
+    e.title = n.length === 1 ? n[0] : n.length === 2 ? `${n[0]} with ${n[1]}` : "Shown together";
+    e.line = n.length === 1 ? e.data[0].d : n.length === 2 ? e.data[0].d : n.join(", ") + ".";
+  });
   const BACK = [2, 16, 28, 6, 23, 47, 30, 18, 7, 3, 75, 29, 14, 19];
   const FRONT = [3, 47, 23, 30, 16];
-
-  const byId = Object.fromEntries(LOOKS.map(l => [l.id, l]));
-  ENTRIES.forEach(e => {
-    const ls = e.looks.map(id => byId[id]).filter(Boolean);
-    e.data = ls;
-    e.title = e.title || ls[0].name;
-    e.line = e.line || ls[0].d;
-  });
 
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const stage = root.querySelector(".sl-stage");
@@ -61,7 +59,7 @@
     const frontGap = mobile ? vw * 1.8 : vw * .95;
 
     fill(layers.mid, ENTRIES.map((e, i) => ({
-      html: `<button class="sl-fig" type="button" data-e="${i}" aria-label="Step closer: ${e.title}" style="--r:${H[e.cuts[0]]}">${img(e.cuts[0])}<span class="sl-shadow"></span><span class="sl-name">${e.title}</span></button>`
+      html: `<button class="sl-fig" type="button" data-e="${i}" aria-label="Step closer: ${e.title}" style="--r:${H[e.cuts[0]]}">${img(e.cuts[0])}<span class="sl-shadow"></span><span class="sl-name">${e.data.length === 1 ? e.title : e.data[0].name}</span></button>`
     })), midGap, vw);
 
     fill(layers.back, BACK.map(id => ({ html: `<div class="sl-fig" style="--r:${H[id]}">${img(id)}<span class="sl-shadow"></span></div>` })), backGap, vw);
@@ -106,11 +104,10 @@
     raf = 0;
     if (!dragging){
       if (Math.abs(vel) > .05){ offset += vel; vel *= .94; }
-      else if (!reduce && visible && !closer.open && !root.matches(":hover") && performance.now() - touched > 5000){ offset -= .25; }
       else vel = 0;
     }
     render();
-    if (dragging || Math.abs(vel) > .05 || (!reduce && visible && !closer.open)) raf = requestAnimationFrame(loop);
+    if (dragging || Math.abs(vel) > .05) raf = requestAnimationFrame(loop);
   }
   const kick = () => { if (!raf) raf = requestAnimationFrame(loop); };
 
@@ -164,12 +161,13 @@
     const e = ENTRIES[cur];
     opener = from || opener;
     q(".slc-count").textContent = `${String(cur + 1).padStart(2, "0")} / ${String(ENTRIES.length).padStart(2, "0")}`;
-    q(".slc-label").textContent = e.data.map(l => `Look ${l.n}`).join(" · ");
+    q(".slc-label").textContent = [...new Set(e.data.map(p => CATEGORIES[p.cat].label))].join(" · ");
     q("h2").textContent = e.title;
     q(".slc-line").textContent = e.line;
     const prev = ENTRIES[(cur - 1 + ENTRIES.length) % ENTRIES.length], next = ENTRIES[(cur + 1) % ENTRIES.length];
     q(".slc-prev span").textContent = prev.title; q(".slc-next span").textContent = next.title;
     q(".slc-view").href = "collection#" + e.data[0].id;
+    q(".slc-view").textContent = e.data.length === 1 ? "View in the collection" : "View the first design";
 
     // figure + angles
     showCut(e.cuts[0]);
@@ -182,12 +180,10 @@
     }));
 
     // panel
-    const pieces = e.data.flatMap(l => l.pieces.split(" + ").map(p => ({ p, l })));
-    const words = ["One piece", "Two pieces", "Three pieces", "Four pieces"];
-    q(".slc-count-pieces").textContent = words[pieces.length - 1] || `${pieces.length} pieces`;
-    q(".slc-list").innerHTML = e.data.map(l => `
-      <li><span class="lbl">${l.name}</span><b>${l.pieces.replace(/ \+ /g, " · ")}</b><i>${l.fabric}</i></li>`).join("");
-    q(".slc-enquire").href = "order?look=" + encodeURIComponent(e.data.map(l => l.name).join(",")) + "#enquire";
+    q(".slc-count-pieces").textContent = e.data.length === 1 ? "One design" : `${e.data.length} designs shown`;
+    q(".slc-list").innerHTML = e.data.map(p => `
+      <li><span class="lbl">${catLabel(p)}</span><a href="collection#${p.id}"><b>${p.name}</b></a><i>Fabric: ${fabricText(p)}</i><i>${priceText(p)}</i></li>`).join("");
+    q(".slc-enquire").href = waProduct(e.data);
 
     if (!closer.open){
       closer.open = true; closer.hidden = false;
@@ -204,7 +200,7 @@
   function showCut(c){
     const im = q(".slc-fig img");
     im.src = CUT + c + ".webp";
-    im.alt = ENTRIES[cur].title + ": " + ENTRIES[cur].data.map(l => l.pieces).join(" and ");
+    im.alt = ENTRIES[cur].title + ": " + ENTRIES[cur].data.map(p => p.d).join(" ");
     q(".slc-fig").style.setProperty("--r", H[c]);
   }
 

@@ -5,12 +5,12 @@ Website for DÚNÍYÀ, a Christian clothing house in Lagos making Afro-modern, m
 ## Structure
 
 ```
-index.html              Home: hero, statement, looks rail, features, page links
-house.html              The House: meaning, values, origin, worldview, women's expression
-collection.html         Collection: every look, filters, detail view with extra angles
+index.html              Home: hero, introduction, salon, ways to order, page links
+house.html              The House: what DÚNÍYÀ is and how it works
+collection.html         Collection: salon, categorised catalogue, product detail, WhatsApp enquiry
 lookbook.html           Lookbook: the collection in six acts, from the shoot plan
-craft.html              Craft: annotated close-ups, fabrics, recognition principles, process
-order.html              Order: steps, WhatsApp, measurements, questions
+craft.html              Craft: annotated details, materials, how a piece is made
+order.html              Order: five steps, WhatsApp topics, enquiry form, questions
 assets/css/styles.css   shared styles (brand tokens at the top)
 assets/js/main.js       collection data, lightbox, hotspots, menu, WhatsApp
 assets/js/salon.js      the Salon: draggable field of cutout figures (home + collection)
@@ -20,6 +20,7 @@ assets/img/photos/      campaign photography (web-sized)
 apps-script/            Google Apps Script for the enquiry form (Sheet + email)
 assets/fonts/           brand fonts, self-hosted (SIL Open Font License)
 404.html                not-found page
+tools/build_pages.py    builds all pages (layout and copy)
 vercel.json, _headers   clean URLs and security headers for Vercel / Cloudflare Pages / Netlify
 ```
 
@@ -50,10 +51,30 @@ Type: Gloock (display), Cormorant Garamond italic (accent), Jost (body).
 
 ## Editing
 
-- **Collection looks** live in the `LOOKS` array at the top of `assets/js/main.js`. Each look has a main photo (`img`) and extra angles (`alt`) shown on hover and in the detail view. Its size in the editorial grid is set in `LAYOUT` just above.
-- **WhatsApp number**: set `WHATSAPP_NUMBER` at the top of `assets/js/main.js` (digits with country code, e.g. `2348012345678`). Every "Order" and "Enquire" button then opens WhatsApp with a message naming the look.
-- **Enquiry form**: follow [`apps-script/README.md`](apps-script/README.md), then paste the Web app URL into `FORM_ENDPOINT` at the top of `assets/js/main.js`.
-- **The Salon**: which looks appear, and which cutouts belong to each, is set in `ENTRIES` at the top of `assets/js/salon.js`. To add a cutout, export a transparent PNG from Photoshop, convert it to WebP at about 900px tall into `assets/img/cutouts/cut-<number>.webp`, and add its relative height to `H`.
+### Pages
+Page layout and copy live in `tools/build_pages.py`. Edit it, then run `python3 tools/build_pages.py` to rebuild every `.html` page. Don't edit the `.html` files directly; the next build will overwrite them.
+
+### The catalogue
+Products live in `PRODUCTS` at the top of `assets/js/main.js`. The collection page, the product detail view, the salon, the enquiry form and every WhatsApp product link read from it.
+
+| Field | Meaning |
+|---|---|
+| `status` | `"ready"` shown with its approved price · `"enquiry"` shown, price and details on enquiry · `"hidden"` not published anywhere. Customers never see these labels. |
+| `cat` / `sub` | `women`, `men` or `commission`, and the type (Dresses, Tops, Shirts, Trousers, Shorts, Two-piece sets). Empty types are not shown. |
+| `fabric` | Only a documented fabric. `null` shows "Confirmed when you enquire". |
+| `colour` | As photographed. |
+| `price` | Only an approved selling price, e.g. `"₦85,000"`. `null` shows "Price on enquiry". |
+| `img`, `alt` | Photos in `assets/img/photos/` (without `.jpg`). |
+| `with` | Other products shown in the same photographs. |
+
+To publish a price: set `price` and change `status` to `"ready"`. To withdraw a design: set `status` to `"hidden"`.
+
+### The salon
+Which figures appear, and which products each shows, is set in `ENTRIES` at the top of `assets/js/salon.js`. Figures whose products are all hidden are skipped automatically.
+
+### WhatsApp and the form
+- **WhatsApp number**: `WHATSAPP_NUMBER` in `assets/js/main.js`. Product buttons send a message naming the design and linking to it; general messages are in `WA_TOPICS`.
+- **Enquiry form**: see [`apps-script/README.md`](apps-script/README.md). The form's endpoint is `FORM_ENDPOINT` in `assets/js/main.js`.
 - **New photos**: add them to `assets/img/photos/` at about 1400px on the long edge.
 
 ## Run locally

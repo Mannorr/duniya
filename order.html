@@ -6,10 +6,10 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://script.google.com https://script.googleusercontent.com; form-action 'self'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Order · DÚNÍYÀ</title>
-<meta name="description" content="How to order made-to-measure DÚNÍYÀ clothing on WhatsApp Business.">
-<meta name="theme-color" content="#0A2A20">
+<meta name="description" content="How to order made-to-order clothing from DÚNÍYÀ. Enquire about any design on WhatsApp.">
+<meta name="theme-color" content="#0A1F1B">
 <meta property="og:title" content="Order · DÚNÍYÀ">
-<meta property="og:description" content="How to order made-to-measure DÚNÍYÀ clothing on WhatsApp Business.">
+<meta property="og:description" content="How to order made-to-order clothing from DÚNÍYÀ. Enquire about any design on WhatsApp.">
 <meta property="og:image" content="assets/img/photos/wine_sandal.jpg">
 <link rel="icon" type="image/png" href="assets/img/logo/seal-cream.png">
 <link rel="preload" href="assets/fonts/gloock-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -48,7 +48,7 @@
     <a href="craft">Craft</a>
     <a href="order" aria-current="page">Order</a>
   </nav>
-  <div class="overlay-foot label"><span>Lagos, Nigeria</span><span>Made to measure</span></div>
+  <div class="overlay-foot label"><span>Lagos, Nigeria</span><a data-wa="general" href="order#whatsapp">WhatsApp us</a></div>
 </div>
 
 <main>
@@ -56,31 +56,61 @@
   <div class="ph-text" style="order:0">
     <span class="label">Ordering</span>
     <h1 class="ph-title" style="color:var(--forest)">Make it <em>yours.</em></h1>
-    <p class="ph-lede">Every DÚNÍYÀ piece is made to order in your measurements. Send an enquiry and a person from the house will call or WhatsApp you.</p>
-    <p><a class="arrow" href="#enquire">Start an enquiry</a></p>
+    <p class="ph-lede">Every DÚNÍYÀ piece is made to order. The quickest way to start is a message on WhatsApp.</p>
+    <p style="display:flex;gap:14px;flex-wrap:wrap"><a class="btn" data-wa="general" href="#whatsapp">Enquire on WhatsApp</a><a class="btn ghost" href="#enquire" style="color:var(--forest)">Use the enquiry form</a></p>
   </div>
   <div class="ph-img"><img src="assets/img/photos/wine_sandal.jpg" alt="Seated man in wine trousers and striped sandals" style="object-position:50% 30%"></div>
 </section>
 
 <section class="day sec">
   <div class="wrap">
-    <span class="label">Four steps</span>
-    <div class="steps" style="margin-top:28px">
-      <div class="step rv"><span class="n">1</span><h3>Choose a look</h3><p>Pick a piece or a full look from the <a href="collection">collection</a> and note its name.</p></div>
-      <div class="step rv"><span class="n">2</span><h3>Send an enquiry</h3><p>Fill in the form below. We call or WhatsApp you with the price and fabric options.</p></div>
-      <div class="step rv"><span class="n">3</span><h3>Share measurements</h3><p>We guide you through measuring, or you can book a fitting in Lagos.</p></div>
-      <div class="step rv"><span class="n">4</span><h3>Made &amp; delivered</h3><p>We confirm the lead time before cutting begins, then deliver to you.</p></div>
+    <span class="label">How ordering works</span>
+    <ol class="steps five" style="margin-top:28px">
+      <li class="step rv"><span class="n">1</span><h3>Browse</h3><p>Look through the <a href="collection">collection</a> for a design you like.</p></li>
+      <li class="step rv"><span class="n">2</span><h3>Enquire</h3><p>Message us about a design, a variation of one, or your own idea.</p></li>
+      <li class="step rv"><span class="n">3</span><h3>Discuss</h3><p>We talk through the design, the fabric available and your measurements.</p></li>
+      <li class="step rv"><span class="n">4</span><h3>Confirm</h3><p>We confirm the garment, the quotation and the order arrangements with you.</p></li>
+      <li class="step rv"><span class="n">5</span><h3>Proceed</h3><p>Your order goes ahead once those details are agreed.</p></li>
+    </ol>
+    <p class="note-line">Selecting a design does not mean it is already made or in stock. Each piece is made after the details are confirmed.</p>
+  </div>
+</section>
+
+<section class="night sec grain" id="whatsapp">
+  <div class="wrap">
+    <div class="wa">
+      <div>
+        <span class="label">WhatsApp Business</span>
+        <h2 style="margin-top:14px">Message DÚNÍYÀ</h2>
+        <p>Choose what your message is about and WhatsApp opens with it already written. To ask about a specific design, use “Enquire on WhatsApp” on that design in the <a href="collection">collection</a>; your message will name it.</p>
+        <div class="wa-topics">
+          <a class="btn" data-wa="product" href="#whatsapp">A question about a design</a>
+          <a class="btn ghost" data-wa="fabric" href="#whatsapp">A fabric or colour variation</a>
+          <a class="btn ghost" data-wa="measure" href="#whatsapp">Measurements</a>
+          <a class="btn ghost" data-wa="commission" href="#whatsapp">A custom commission</a>
+          <a class="btn ghost" data-wa="general" href="#whatsapp">Something else</a>
+        </div>
+      </div>
+      <div class="wa-num">
+        <span class="label">Our number</span>
+        <div class="num">
+          <code id="waNum">+234 815 901 9324</code>
+          <button class="btn" id="copyBtn">Copy number</button>
+        </div>
+        <p class="toast" id="toast" aria-live="polite"></p>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="night sec grain" id="enquire">
+<section class="night sec grain" id="enquire" style="padding-top:0">
   <div class="wrap enquire">
     <div class="enq-intro rv">
-      <span class="label">Enquiry</span>
-      <h2>Tell us what you <em class="c">have in mind.</em></h2>
-      <p>It takes a minute. We reply personally, by WhatsApp or phone call, with price, fabric options and next steps.</p>
-      <figure class="enq-img"><img src="assets/img/photos/cafe_pocket.jpg" alt="Close-up of the topstitched pocket on the café top" loading="lazy"></figure>
+      <span class="label">Enquiry form</span>
+      <h2>Prefer us to <em class="c">contact you?</em></h2>
+      <p>Leave your details and what you have in mind. A person from DÚNÍYÀ will reply by WhatsApp or phone call.</p>
+      <p class="enq" id="enquiry" hidden></p>
+      <figure class="enq-img"><img src="assets/img/photos/cafe_pocket.jpg" alt="Close-up of the patch pocket on the café-au-lait two-pocket shirt" loading="lazy"></figure>
     </div>
     <form class="eform" id="eform" novalidate>
       <div class="f-row two">
@@ -92,6 +122,18 @@
         <div class="field"><label for="f-city">City</label><input id="f-city" name="city" autocomplete="address-level2" placeholder="Lagos" required maxlength="60"><span class="err" id="e-city"></span></div>
       </div>
       <fieldset class="field">
+        <legend>What would you like?</legend>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="request" value="An existing design" checked><span>An existing design</span></label>
+          <label class="opt"><input type="radio" name="request" value="A variation of a design"><span>A variation of a design</span></label>
+          <label class="opt"><input type="radio" name="request" value="Custom commission"><span>A custom commission</span></label>
+        </div>
+      </fieldset>
+      <fieldset class="field">
+        <legend>Which designs? <i>choose any</i></legend>
+        <div class="opts looks" id="f-looks"></div>
+      </fieldset>
+      <fieldset class="field">
         <legend>How should we reach you?</legend>
         <div class="opts">
           <label class="opt"><input type="radio" name="contact" value="WhatsApp" checked><span>WhatsApp</span></label>
@@ -100,24 +142,20 @@
         </div>
       </fieldset>
       <fieldset class="field">
-        <legend>Which looks interest you? <i>choose any</i></legend>
-        <div class="opts looks" id="f-looks"></div>
-      </fieldset>
-      <fieldset class="field">
         <legend>Measurements</legend>
         <div class="opts">
-          <label class="opt"><input type="radio" name="fitting" value="Measure me in person in Lagos" checked><span>Measure me in Lagos</span></label>
-          <label class="opt"><input type="radio" name="fitting" value="Guide me over WhatsApp"><span>Guide me remotely</span></label>
-          <label class="opt"><input type="radio" name="fitting" value="I already have my measurements"><span>I have them</span></label>
+          <label class="opt"><input type="radio" name="fitting" value="I have my measurements"><span>I have my measurements</span></label>
+          <label class="opt"><input type="radio" name="fitting" value="I'll need help with measurements"><span>I’ll need help</span></label>
+          <label class="opt"><input type="radio" name="fitting" value="Not sure yet" checked><span>Not sure yet</span></label>
         </div>
       </fieldset>
       <div class="f-row two">
-        <div class="field"><label for="f-needby">Needed by <i>optional</i></label><input id="f-needby" name="needby" type="date"></div>
+        <div class="field"><label for="f-needby">Needed by <i>optional</i></label><input id="f-needby" name="needby" type="date"><span class="hint">We will tell you whether this date is possible.</span></div>
         <div class="field hp" aria-hidden="true"><label for="f-website">Website</label><input id="f-website" name="website" tabindex="-1" autocomplete="off"></div>
       </div>
-      <div class="field"><label for="f-message">Anything else? <i>optional</i></label><textarea id="f-message" name="message" rows="4" maxlength="2000" placeholder="Fabric or colour changes, an occasion, sizing questions…"></textarea></div>
+      <div class="field"><label for="f-message">Tell us more <i>optional</i></label><textarea id="f-message" name="message" rows="4" maxlength="2000" placeholder="The variation or idea you have in mind, an occasion, questions about fabric or measurements…"></textarea></div>
       <div class="f-foot">
-        <p class="f-privacy">We use these details only to reply to your enquiry.</p>
+        <p class="f-privacy">We use these details only to reply to your enquiry. For a custom commission, you can send reference photos once we are in touch on WhatsApp.</p>
         <button class="btn" type="submit" id="f-submit">Send enquiry</button>
       </div>
       <p class="f-status" id="f-status" role="status" aria-live="polite"></p>
@@ -133,48 +171,6 @@
   </div>
 </section>
 
-<section class="night sec grain" id="whatsapp" style="padding-top:0">
-  <div class="wrap">
-    <div class="wa">
-      <div>
-        <span class="label">Prefer to message directly?</span>
-        <h2 style="margin-top:14px">WhatsApp Business</h2>
-        <p>Send us the look name, your city and any questions about fit, fabric or timing.</p>
-        <p class="enq" id="enquiry"></p>
-      </div>
-      <div>
-        <div class="num">
-          <code id="waNum">+234 815 901 9324</code>
-          <button class="btn" id="copyBtn">Copy number</button>
-        </div>
-        <p class="toast" id="toast" aria-live="polite"></p>
-        <p style="text-align:right;margin-top:6px"><a class="btn ghost" data-wa="" href="#whatsapp">Open WhatsApp</a></p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="day sec">
-  <div class="wrap two">
-    <div class="rv" style="display:grid;gap:22px">
-      <span class="label">Measurements</span>
-      <h2 class="pull">What we will ask for.</h2>
-      <p style="color:var(--mute-dark);max-width:44ch">Have a soft tape measure ready. We will walk you through each one, and we can measure you in person in Lagos.</p>
-      <img src="assets/img/photos/d_placket.jpg" alt="Collar and placket of the white shirt" loading="lazy" style="width:min(320px,100%);aspect-ratio:3/4;object-fit:cover;margin-top:10px">
-    </div>
-    <div class="measure rv">
-      <div>Chest<span>Fullest part, tape level</span></div>
-      <div>Waist<span>Natural waist</span></div>
-      <div>Hips<span>Fullest part</span></div>
-      <div>Shoulder<span>Point to point</span></div>
-      <div>Sleeve<span>Shoulder to wrist</span></div>
-      <div>Top length<span>Shoulder to hem</span></div>
-      <div>Trouser length<span>Waist to ankle</span></div>
-      <div>Height<span>Without shoes</span></div>
-    </div>
-  </div>
-</section>
-
 <section class="stone sec" id="faq">
   <div class="wrap two">
     <div class="rv">
@@ -182,11 +178,12 @@
       <h2 class="pull" style="margin-top:22px">Before you <em>order.</em></h2>
     </div>
     <div class="faq rv">
-      <details><summary>How much does a look cost?</summary><p>Prices depend on the look and the fabric you choose. Send us the look name on WhatsApp and we will reply with the price.</p></details>
-      <details><summary>How long does it take?</summary><p>Each piece is made after you order. We confirm the lead time with you before cutting begins, so you know when to expect it.</p></details>
-      <details><summary>Can I change the fabric or length?</summary><p>Often, yes. Tell us what you have in mind and we will tell you what works for that garment.</p></details>
-      <details><summary>Do you deliver outside Lagos?</summary><p>Ask us on WhatsApp with your city. We confirm delivery options and cost when you order.</p></details>
-      <details><summary>What if it doesn’t fit right?</summary><p>Tell us. Because every piece is made for you, we will work with you to put it right.</p></details>
+      <details><summary>How much does a design cost?</summary><p>The price depends on the design and the fabric. Ask about a design on WhatsApp and we will give you a quotation before anything is agreed.</p></details>
+      <details><summary>Are the designs in stock?</summary><p>Designs are made to order, so a garment may not be ready to send straight away. We confirm availability and timing when you enquire.</p></details>
+      <details><summary>Can I have a different fabric, colour or length?</summary><p>Ask us about the change you have in mind. We will tell you whether it is possible for that design and which fabrics are available.</p></details>
+      <details><summary>How do measurements work?</summary><p>We discuss the measurements we need for your piece during your enquiry.</p></details>
+      <details><summary>How long does it take, and how is it delivered?</summary><p>Timing, payment and delivery arrangements are confirmed with you during your enquiry, before the order goes ahead.</p></details>
+      <details><summary>Can you make something that isn’t in the collection?</summary><p>Send us a reference or describe your idea as a custom commission. We will look at it and tell you honestly whether we can make it.</p></details>
     </div>
   </div>
 </section>
@@ -198,17 +195,17 @@
       <nav class="foot-nav" aria-label="Footer">
         <a href="house">The House</a><a href="lookbook">Lookbook</a>
         <a href="collection">Collection</a><a href="craft">Craft</a>
-        <a href="order">Order</a><a href="order#faq">Questions</a>
+        <a href="order">Order</a><a href="collection#custom-commissions">Custom commissions</a>
       </nav>
       <div class="foot-contact">
         <span class="label" style="color:var(--copper-soft)">Lagos, Nigeria</span>
-        <span>WhatsApp · +234 815 901 9324</span>
-        <span>Made to measure</span>
+        <a data-wa="general" href="order#whatsapp">WhatsApp · +234 815 901 9324</a>
+        <span>Made to order</span>
       </div>
     </div>
     <img class="foot-wm" src="assets/img/logo/wordmark-copper.png" alt="Dúníyà">
     <div class="foot-row label">
-      <span>A Christian clothing house</span>
+      <span>A clothing house · Lagos</span>
       <span>© 2026 DÚNÍYÀ</span>
     </div>
   </div>
