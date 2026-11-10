@@ -85,3 +85,7 @@ Any static server works, for example:
 ```
 npx serve .
 ```
+
+## Brand guidelines page (unlisted)
+
+`/brand` shows the visual identity (logo, colour, typography, imagery, voice) and offers the logo pack (`assets/brand/`). It is not linked from any page, is marked `noindex` (meta tag and `X-Robots-Tag` header), and is not cached. Anyone with the address can open it, and because this repository is public the files can also be found here. The Foundation section of the full PDF (purpose, values, worldview) is deliberately not published.

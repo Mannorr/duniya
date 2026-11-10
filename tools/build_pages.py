@@ -6,14 +6,14 @@ os.chdir(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 P = 'assets/img/photos/'
 L = 'assets/img/logo/'
 
-def head(title, desc, og='hero'):
+def head(title, desc, og='hero', robots=None):
     return f'''<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://script.google.com https://script.googleusercontent.com; form-action 'self'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
-<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="referrer" content="strict-origin-when-cross-origin">{f'\n<meta name="robots" content="{robots}">' if robots else ''}
 <title>{title}</title>
 <meta name="description" content="{desc}">
 <meta name="theme-color" content="#0A1F1B">
@@ -102,13 +102,13 @@ def fig(src, alt, cap=None, cls='', lazy=True):
     cp = f'<figcaption class="cap">{cap}</figcaption>' if cap else ''
     return f'<figure{c}><img src="{P}{src}.jpg" alt="{alt}"{l}>{cp}</figure>'
 
-def write(name, title, desc, body, og='hero'):
+def write(name, title, desc, body, og='hero', robots=None):
     foot = FOOT
-    if name == 'order.html':  # the order page has its own WhatsApp buttons
+    if name in ('order.html', 'brand.html'):  # these pages don't need the floating WhatsApp button
         foot = foot.replace('<a class="btn wa-float" data-wa="general" href="order#whatsapp">WhatsApp</a>\n', '')
     if 'data-salon' in body:
         foot = foot.replace('<script src="assets/js/main.js"></script>', '<script src="assets/js/main.js"></script>\n<script src="assets/js/salon.js"></script>')
-    open(name, 'w').write(head(title, desc, og) + nav(name) + body + foot)
+    open(name, 'w').write(head(title, desc, og, robots) + nav(name) + body + foot)
 
 def salon(top):
     return f'''
@@ -706,6 +706,183 @@ order = f'''
 write('order.html','How to Order · DÚNÍYÀ','How to order from DÚNÍYÀ: choose a design, add your measurements and any changes, and order on WhatsApp or online.', order, 'wine_sandal')
 
 print('ok')
+
+# ---------------- BRAND (unlisted: not linked anywhere, not indexed) ----------------
+B = 'assets/brand/logos/duniya-'
+def sw(name, hexv, rgb, cmyk, role, ink):
+    return f'''<div class="bsw rv"><button class="bsw-chip" type="button" data-copy="{hexv}" style="background:{hexv};color:{ink}" aria-label="Copy {name} {hexv}"><span>{name}</span><span class="bsw-copy">Copy</span></button>
+      <dl><div><dt>HEX</dt><dd>{hexv}</dd></div><div><dt>RGB</dt><dd>{rgb}</dd></div><div><dt>CMYK</dt><dd>{cmyk}</dd></div></dl><p>{role}</p></div>'''
+def mark(file, ground, label):
+    return f'<figure class="bmark" style="background:{ground}"><img src="{B}{file}.svg" alt="{label}" loading="lazy"><figcaption>{label}</figcaption></figure>'
+def pair(fg, bg, ratio, verdict, ok):
+    return f'<div class="bpair{"" if ok else " no"}" style="background:{bg};color:{fg}"><span class="aa">Aa</span><span class="bp-r">{ratio}</span><span class="bp-v">{verdict}</span></div>'
+
+brand = f'''
+<main class="brandpg">
+<section class="ph ph-bleed b-hero">
+  <img src="{P}plat3.jpg" alt="" style="object-position:50% 8%">
+  <div class="wrap">
+    <span class="label" style="color:var(--copper-soft)">Brand identity guidelines · v1.0 · October 2026</span>
+    <h1 class="ph-title">The <em>identity.</em></h1>
+    <p class="ph-lede">How Dúníyà looks and sounds: the marks, colours, typefaces, imagery and voice, with every logo file to download.</p>
+    <p style="display:flex;gap:14px;flex-wrap:wrap"><a class="btn" href="assets/brand/Duniya_Logo_Pack.zip" download>Download the logo pack</a><a class="btn ghost" href="#logo">Read the guide</a></p>
+    <nav class="b-toc label" aria-label="Sections"><a href="#logo">01 Logo</a><a href="#colour">02 Colour</a><a href="#type">03 Typography</a><a href="#imagery">04 Imagery</a><a href="#voice">05 Voice</a><a href="#files">06 Files</a></nav>
+  </div>
+</section>
+
+<section class="day sec" id="logo">
+  <div class="wrap">
+    <div class="b-head"><span class="b-num">01</span><div><span class="label">Logo</span><h2>Three marks, <em class="c">one house.</em></h2></div></div>
+    <div class="b-marks">
+      <div class="b-markcard rv">{mark('seal-forest', 'var(--cream)', 'The Seal')}<span class="label">Primary · Approved</span><h3>The Seal</h3><p>A single serif D standing on a bar, enclosed by a ring. The bar echoes the underline in the wordmark; the ring holds the whole world in one shape. The first mark people meet: website header, profile pictures, labels, packaging. Centre it where possible.</p></div>
+      <div class="b-markcard rv">{mark('wordmark-cream', 'var(--forest)', 'The Wordmark')}<span class="label">Secondary</span><h3>The Wordmark</h3><p>Custom lettering with acute and grave accents and a hand-set underline beneath “úníy”. Used where the name must be read: covers, footers, signage, campaign end frames. Never retype it in a font. The y drops below the underline, so allow extra space below.</p></div>
+      <div class="b-markcard rv">{mark('monogram-copper', 'var(--forest-deep)', 'The Monogram')}<span class="label">Supporting</span><h3>The Monogram</h3><p>The D on its bar, without the ring. For the smallest and most physical places: swing tags, woven labels, buttons, embossing, favicons and repeat patterns on tissue and lining.</p></div>
+    </div>
+
+    <div class="b-sub rv"><span class="label">Approved colourways · Approved</span><h3>Four grounds.</h3><p>Every mark appears in one colour only, on one of four brand grounds: forest on cream; cream on copper; cream on wine; cream or copper on forest.</p></div>
+    <div class="b-grounds">
+      {mark('seal-forest', '#F0E2D2', 'Forest on cream')}
+      {mark('seal-cream', '#B87333', 'Cream on copper')}
+      {mark('seal-cream', '#901E26', 'Cream on wine')}
+      {mark('seal-cream', '#0E2D27', 'Cream on forest')}
+      {mark('seal-copper', '#0E2D27', 'Copper on forest')}
+    </div>
+
+    <div class="b-two">
+      <div class="rv"><span class="label">Clear space and minimum size · Proposed</span><h3>Give it room.</h3>
+        <table class="b-table"><thead><tr><th>Mark</th><th>Clear space (x)</th><th>Screen</th><th>Print</th></tr></thead><tbody>
+          <tr><td>Seal</td><td>Height of the bar under the D, doubled</td><td>24 px</td><td>10 mm</td></tr>
+          <tr><td>Wordmark</td><td>Height of the lowercase n</td><td>80 px</td><td>25 mm</td></tr>
+          <tr><td>Monogram</td><td>Width of the D’s stem</td><td>16 px</td><td>6 mm</td></tr>
+        </tbody></table></div>
+      <div class="rv"><span class="label">Misuse</span><h3>Never alter the marks.</h3>
+        <ul class="b-never"><li>Do not stretch or squash</li><li>Do not rotate</li><li>Do not add shadows or effects</li><li>Do not use colours outside the palette</li><li>Do not place copper on wine</li><li>Do not fade or tint the mark</li><li>Never retype the name, outline the marks, or combine them into new lock-ups</li></ul></div>
+    </div>
+    <div class="b-photo rv">
+      <img src="{P}hero.jpg" alt="The cream wordmark set in the calm, out-of-focus part of the home page photograph" loading="lazy">
+      <div><span class="label">On photography</span><h3>Place marks on quiet ground.</h3>
+        <p><b>Do</b> set the cream Wordmark in the calm, out-of-focus part of the frame, as on the website hero.</p>
+        <p><b>Do</b> add a soft forest shade at the edge when the backdrop is lighter.</p>
+        <p><b>Don’t</b> place a mark over pattern, faces or busy detail.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="night sec grain" id="colour">
+  <div class="wrap">
+    <div class="b-head"><span class="b-num">02</span><div><span class="label">Colour</span><h2>Earthy, restrained, <em class="c">warm.</em></h2></div></div>
+    <div class="b-swatches">
+      {sw('Forest', '#0E2D27', '14, 45, 39', '69 0 13 82', 'Primary. The ground of the house. Deep, quiet and grown.', '#F0E2D2')}
+      {sw('Cream', '#F0E2D2', '240, 226, 210', '0 6 13 6', 'Primary. Undyed cloth and daylight. The main light ground.', '#0E2D27')}
+      {sw('Copper', '#B87333', '184, 115, 51', '0 38 72 28', 'Primary. Warmth and craft. Accents, details and calls to action.', '#0A1F1B')}
+      {sw('Wine', '#901E26', '144, 30, 38', '0 79 74 44', 'Accent. A rich occasional ground for tags, packaging and campaigns.', '#F0E2D2')}
+    </div>
+    <p class="b-note">Values taken from the master logo sheet. CMYK figures are converted approximations; confirm with a printed proof before production.</p>
+    <div class="b-support">
+      <button type="button" data-copy="#0A1F1B" style="background:#0A1F1B;color:#F0E2D2;border:1px solid rgba(240,226,210,.2)"><b>Deep Forest</b><span>#0A1F1B</span><i>Night backgrounds, footers</i></button>
+      <button type="button" data-copy="#E2D3C0" style="background:#E2D3C0;color:#0E2D27"><b>Stone</b><span>#E2D3C0</span><i>Secondary light ground</i></button>
+      <button type="button" data-copy="#2E4A35" style="background:#2E4A35;color:#F0E2D2"><b>Moss</b><span>#2E4A35</span><i>Bands and dividers</i></button>
+      <button type="button" data-copy="#1C2420" style="background:#1C2420;color:#F0E2D2;border:1px solid rgba(240,226,210,.2)"><b>Ink</b><span>#1C2420</span><i>Body text on light grounds</i></button>
+    </div>
+    <div class="b-prop rv"><span class="label">Proportion across a typical page · Proposed</span>
+      <div class="b-bar"><span style="flex:42;background:#0E2D27">Forest 42%</span><span style="flex:33;background:#F0E2D2;color:#0E2D27">Cream 33%</span><span style="flex:13;background:#B87333;color:#0A1F1B">Copper 13%</span><span style="flex:7;background:#901E26">Wine 7%</span><span style="flex:5;background:#2E4A35"></span></div>
+      <p class="b-note">Mostly forest and cream. Copper is an accent: never set long text in it on cream. Wine is used sparingly, mostly as a ground for small objects.</p></div>
+    <div class="rv"><span class="label">Pairings and legibility</span>
+      <div class="b-pairs">
+        {pair('#F0E2D2', '#0E2D27', '11.6 : 1', 'AA text', True)}
+        {pair('#0E2D27', '#F0E2D2', '11.6 : 1', 'AA text', True)}
+        {pair('#B87333', '#0E2D27', '3.9 : 1', 'Large text only', True)}
+        {pair('#F0E2D2', '#B87333', '3.0 : 1', 'Avoid for text', False)}
+        {pair('#F0E2D2', '#901E26', '6.9 : 1', 'AA text', True)}
+        {pair('#B87333', '#901E26', '2.3 : 1', 'Avoid for text', False)}
+      </div>
+      <p class="b-note">Ratios follow WCAG 2.1. Body text needs 4.5 : 1 or more. Copper on wine is decorative only.</p></div>
+  </div>
+</section>
+
+<section class="day sec" id="type">
+  <div class="wrap">
+    <div class="b-head"><span class="b-num">03</span><div><span class="label">Typography</span><h2>A characterful serif, <em class="c">a calm sans.</em></h2></div></div>
+    <div class="b-faces">
+      <div class="b-face rv"><span class="label">Display · Gloock</span><span class="b-aa" style="font-family:var(--display)">Aa</span><p class="b-set" style="font-family:var(--display)">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz<br>0123456789 ÚÍÀ úíà</p><p>Headlines and large statements. One weight, used with restraint.</p></div>
+      <div class="b-face rv"><span class="label">Accent · Cormorant Garamond Italic</span><span class="b-aa" style="font-family:var(--script);font-style:italic">Aa</span><p class="b-set" style="font-family:var(--script);font-style:italic">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz<br>0123456789</p><p>One or two words inside a headline, quotes, captions with feeling. Never for paragraphs.</p></div>
+      <div class="b-face rv"><span class="label">Text · Jost</span><span class="b-aa" style="font-family:var(--body);font-weight:300">Aa</span><p class="b-set" style="font-family:var(--body);font-weight:300">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz<br>0123456789</p><p>Body copy in Light, labels in Regular with wide tracking, emphasis in Medium.</p></div>
+    </div>
+    <p class="b-note dark">All three are free Google Fonts, already used on the website. The logos are artwork and are never set in these fonts.</p>
+    <div class="b-hier rv">
+      <div><span class="label">Display · Gloock 96</span><p style="font-family:var(--display);font-size:clamp(48px,7vw,96px);line-height:1;color:var(--forest)">The whole world.</p></div>
+      <div><span class="label">Headline · Gloock 48</span><p style="font-family:var(--display);font-size:clamp(30px,4vw,48px);line-height:1.05;color:var(--forest)">Made, not merely styled.</p></div>
+      <div><span class="label">Accent · Cormorant Italic 28</span><p style="font-family:var(--script);font-style:italic;font-size:28px;color:var(--copper)">Same house. Different expression.</p></div>
+      <div><span class="label">Body · Jost Light 16 / 1.7</span><p style="font-weight:300;font-size:16px;line-height:1.7;max-width:60ch">Every Dúníyà piece is made to order to your measurements. Fabric is confirmed with you before anything is made.</p></div>
+      <div><span class="label">Label · Jost Regular 11 · tracking 0.32em · uppercase</span><p class="label" style="letter-spacing:.32em;color:var(--ink)">Women’s Wear · Platinum Sleeveless Dress</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="stone sec" id="imagery">
+  <div class="wrap">
+    <div class="b-head"><span class="b-num">04</span><div><span class="label">Imagery</span><h2>Quiet, earthy, tactile, <em class="c">intentional.</em></h2></div></div>
+    <p class="b-lede">The person exists within the world. Shoot in sequence: walking, stopping, turning, fabric moving, stillness. Viewers should feel they are discovering the clothing, not reading a catalogue.</p>
+    <div class="b-shots">
+      {fig('plat1','Model in the platinum dress in slanted window light','Wide: the person in the environment','rv')}
+      {fig('onyx','Man in the black notch-neck two-piece, full length','Medium and full length: the garment','rv')}
+      {fig('cafe_pocket','Close-up of a patch pocket','Close: fabric, seams, hands','rv')}
+      {fig('pair','A woman and a man standing together','Connection: men and women together','rv')}
+      {fig('moss','Model walking in the moss-green two-piece','Movement: walking, turning','rv')}
+    </div>
+    <div class="b-env">
+      <div class="rv"><span class="b-pct">60%</span><span class="label">A · Warm neutral, primary</span><p>Copper-brown or cream backdrops. The main Dúníyà world. Intentional, editorial.</p></div>
+      <div class="rv"><span class="b-pct">30%</span><span class="label">B · Deep and earthy</span><p>Forest, dark brown or charcoal for light garments that need contrast. Natural movement.</p></div>
+      <div class="rv"><span class="b-pct">10%</span><span class="label">C · Clean neutral</span><p>Soft grey for product documentation, when switching is easy. Detail.</p></div>
+    </div>
+    <div class="b-two">
+      <div class="rv"><span class="label">Artwork</span><h3>Four pillars.</h3><ul class="b-pillars"><li><b>Journey</b>Paths, distance, arrival</li><li><b>Creation</b>Earth, growth, making</li><li><b>Craft</b>Thread, seam, hand</li><li><b>Light</b>Window light, shadow, dawn</li></ul></div>
+      <div class="rv"><span class="label">Never</span><ul class="b-never"><li>Words or quotes as the primary artwork</li><li>Faces as the default subject</li><li>Copied tribal or cultural patterns</li><li>Trend graphics</li><li>Aggressive imagery</li></ul><p class="b-note dark">Cultural expression is used responsibly, through the people who carry it, never as costume.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="day sec" id="voice">
+  <div class="wrap">
+    <div class="b-head"><span class="b-num">05</span><div><span class="label">Voice</span><h2>Clear first. <em class="c">Deep when it matters.</em></h2></div></div>
+    <div class="b-tones">
+      <div class="rv"><h3>Composed</h3><p>Short, calm sentences. No hype, no exclamation marks.</p></div>
+      <div class="rv"><h3>Truthful</h3><p>Say what the garment is made of and how. Never promise what the house cannot deliver.</p></div>
+      <div class="rv"><h3>Warm</h3><p>Speak to one person. A human from the house answers every message.</p></div>
+      <div class="rv"><h3>Considered</h3><p>Meaning is carried by the clothing, not explained at length.</p></div>
+    </div>
+    <div class="b-two">
+      <div class="rv"><span class="label">How deep, by context · Developed</span>
+        <table class="b-table"><tbody>
+          <tr><td>Founder message, The House page</td><td><i>“Worth comes before achievement.”</i></td></tr>
+          <tr><td>Campaign captions</td><td><i>“Same house. Different expression.”</i></td></tr>
+          <tr><td>Product descriptions</td><td><i>“A sleeveless dress with a single centre seam.”</i></td></tr>
+          <tr><td>WhatsApp, customer service</td><td><i>“Thank you. We’ll confirm the details with you before we begin.”</i></td></tr>
+        </tbody></table></div>
+      <div class="rv"><span class="label">Words · Proposed</span>
+        <p class="b-words"><b>Use</b> made · made to measure · the house · intentional · carry · encounter · cut · wear · the whole world · dignity · craft</p>
+        <p class="b-words no"><b>Avoid</b> <span>luxury · drip · slay · must-have · limited time only · exclusive · hottest · trendy · ethnic · tribal print · affordable luxury</span></p>
+        <p class="b-note dark">Avoid urgency tactics and words that reduce a culture to a style. Write the name DÚNÍYÀ in running text, Dúníyà in the wordmark, never Duniya or DUNIYA.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="night sec grain" id="files">
+  <div class="wrap">
+    <div class="b-head"><span class="b-num">06</span><div><span class="label">Files</span><h2>Every mark, <em class="c">every colour.</em></h2></div></div>
+    <div class="b-dl rv">
+      <div><h3>Logo pack</h3><p>Seal, Wordmark and Monogram in Forest, Cream, Copper and Wine. <b>01 Transparent</b>: SVG, PDF and 2000 px PNG for placing on photos and layouts. <b>02 On Background</b>: every approved pairing set on its brand colour as SVG, PDF, PNG and JPG, ready for profile pictures, slides and print. Use SVG or PDF wherever possible.</p></div>
+      <a class="btn" href="assets/brand/Duniya_Logo_Pack.zip" download>Download ZIP · 5 MB</a>
+    </div>
+    <div class="b-files">
+      {''.join(f'<a class="b-file" href="{B}{m}-{c}.svg" download style="background:{g}"><img src="{B}{m}-{c}.svg" alt="" loading="lazy"><span>{m}-{c}.svg</span></a>' for m in ['seal','wordmark','monogram'] for c,g in [('forest','#F0E2D2'),('cream','#0E2D27'),('copper','#0A1F1B'),('wine','#F0E2D2')])}
+    </div>
+    <div class="b-gov rv"><span class="label">Governance</span><p>Decisions are recorded, not silently changed. <b>Approved</b>: logo system, Seal as primary, four colourways; Forest, Cream and Copper as primary colours. <b>Developed</b>: Wine as accent colour; typefaces as used on the website. <b>Proposed</b>: clear space, minimum sizes, colour proportion; words we use and avoid. <b>Superseded</b>: earlier forest values #0F3D2E and #0F2B25 and cream #F4EDE2, replaced by the logo sheet values.</p></div>
+    <p class="toast" id="toast" aria-live="polite"></p>
+  </div>
+</section>
+</main>'''
+write('brand.html','Brand guidelines · DÚNÍYÀ','DÚNÍYÀ brand identity guidelines and logo files.', brand, 'plat3', robots='noindex, nofollow, noarchive')
 
 # ---------------- 404 ----------------
 nf = f'''

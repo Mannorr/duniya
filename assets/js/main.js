@@ -310,6 +310,13 @@ const WA_TOPICS = {
     });
   }
 
+  /* brand page: tap a colour to copy its hex */
+  $$("[data-copy]").forEach(b => b.addEventListener("click", () => {
+    const v = b.dataset.copy, t = $("#toast");
+    const say = m => { if (t){ t.textContent = m; clearTimeout(say.t); say.t = setTimeout(() => t.textContent = "", 2200); } };
+    if (navigator.clipboard) navigator.clipboard.writeText(v).then(() => say(`Copied ${v}`), () => say(v)); else say(v);
+  }));
+
   /* order form: design → price → measurements → customisation → form (Google Sheet) or WhatsApp */
   const form = $("#eform");
   if (form){
