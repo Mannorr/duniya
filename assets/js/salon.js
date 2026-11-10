@@ -163,6 +163,7 @@
     q(".slc-count").textContent = `${String(cur + 1).padStart(2, "0")} / ${String(ENTRIES.length).padStart(2, "0")}`;
     q(".slc-label").textContent = [...new Set(e.data.map(p => CATEGORIES[p.cat].label))].join(" · ");
     q("h2").textContent = e.title;
+    q("h2").classList.toggle("long", e.title.length > 26);
     q(".slc-line").textContent = e.line;
     const prev = ENTRIES[(cur - 1 + ENTRIES.length) % ENTRIES.length], next = ENTRIES[(cur + 1) % ENTRIES.length];
     q(".slc-prev span").textContent = prev.title; q(".slc-next span").textContent = next.title;
@@ -194,7 +195,7 @@
       root.classList.add("closer-open");
       requestAnimationFrame(() => closer.classList.add("in"));
       document.addEventListener("keydown", keys);
-      if (innerWidth < 760) document.body.style.overflow = "hidden";
+      if (innerWidth <= 1000) document.body.style.overflow = "hidden";
     } else {
       const f = q(".slc-fig"); f.classList.remove("swap"); void f.offsetWidth; f.classList.add("swap");
     }
