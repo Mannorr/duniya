@@ -59,15 +59,16 @@ Products live in `PRODUCTS` at the top of `assets/js/main.js`. The collection pa
 
 | Field | Meaning |
 |---|---|
-| `status` | `"ready"` shown with its approved price · `"enquiry"` shown, price and details on enquiry · `"hidden"` not published anywhere. Customers never see these labels. |
+| `status` | `"ready"` shown with its price · `"hidden"` not published anywhere. Customers never see these labels. |
 | `cat` / `sub` | `women`, `men` or `commission`, and the type (Dresses, Tops, Shirts, Trousers, Shorts, Two-piece sets). Empty types are not shown. |
 | `fabric` | Only a documented fabric. `null` shows "Confirmed when you enquire". |
 | `colour` | As photographed. |
-| `price` | Only an approved selling price, e.g. `"₦85,000"`. `null` shows "Price on enquiry". |
+| `parts` | The garments in the design, which decide the measurement fields on the order form: `"top"`, `"trousers"`, `"dress"`. A two-piece is `["top","trousers"]`. |
+| `sleeves` | `false` for sleeveless tops and dresses (no sleeve-length field). |
 | `img`, `alt` | Photos in `assets/img/photos/` (without `.jpg`). |
 | `with` | Other products shown in the same photographs. |
 
-To publish a price: set `price` and change `status` to `"ready"`. To withdraw a design: set `status` to `"hidden"`.
+Prices are set by garment type in `PRICES` (shirt/top, trousers, dress, two-piece set) and `PAIR_PRICE` (any two pieces ordered together), near the top of `main.js`. A design's type comes from its `sub` (Dresses, Tops, Shirts, Trousers, Two-piece sets). Measurement fields per garment are in `MEASURE`. To withdraw a design: set `status` to `"hidden"`.
 
 ### The salon
 Which figures appear, and which products each shows, is set in `ENTRIES` at the top of `assets/js/salon.js`. Figures whose products are all hidden are skipped automatically.

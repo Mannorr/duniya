@@ -13,13 +13,14 @@ const SITE_URL = "https://duniya-pearl.vercel.app/";
 
 /* ------------------------------------------------------------------
    THE CATALOGUE
-   status:  "ready"   = shown, with its approved price
-            "enquiry" = shown; customer enquires for price / fabric / feasibility
+   status:  "ready"   = shown with its price
             "hidden"  = not published anywhere on the site
    (status labels are internal and never shown to customers)
    fabric:  only what is documented. null = "confirmed when you enquire"
    colour:  as photographed
-   price:   only an approved selling price, e.g. "₦85,000". null = price on enquiry
+   price:   set by garment type in PRICES below (approved by DÚNÍYÀ, November 2026)
+   parts:   the garments in the design, for measurements: "top", "trousers", "dress"
+   sleeves: false when the top or dress has no sleeve (no sleeve-length measurement)
    with:    ids of other products shown in the same photographs
    ------------------------------------------------------------------ */
 const CATEGORIES = {
@@ -28,78 +29,102 @@ const CATEGORIES = {
   commission: { label: "Traditional Wear & Custom Commissions", subs: [] }
 };
 
+/* Approved selling prices. Tops and tunics are priced as shirts.
+   Any two pieces ordered together (e.g. a shirt with trousers) are PAIR_PRICE. */
+const PRICES = { top: 20000, trousers: 20000, dress: 35000, set: 40000 };
+const PAIR_PRICE = 40000;
+const SUB_TYPE = { "Dresses":"dress", "Tops":"top", "Shirts":"top", "Trousers":"trousers", "Shorts":"trousers", "Two-piece sets":"set" };
+
 const PRODUCTS = [
   /* Women’s Wear: garments documented for the October 2026 shoot */
-  { id:"platinum-dress", status:"enquiry", cat:"women", sub:"Dresses", name:"Platinum Sleeveless Dress",
-    img:"plat_front", alt:["plat6","plat3","plat4"], fabric:"Hessian-linen", colour:"Platinum", price:null,
+  { id:"platinum-dress", status:"ready", parts:["dress"], sleeves:false, cat:"women", sub:"Dresses", name:"Platinum Sleeveless Dress",
+    img:"plat_front", alt:["plat6","plat3","plat4"], fabric:"Hessian-linen", colour:"Platinum",
     d:"A sleeveless dress with a single centre seam, falling straight to mid-calf, with pockets at the sides." },
-  { id:"coral-dress", status:"enquiry", cat:"women", sub:"Dresses", name:"Coral-Red Linen Dress",
-    img:"ember", alt:["d_drape"], fabric:"Linen", colour:"Coral red", price:null,
+  { id:"coral-dress", status:"ready", parts:["dress"], cat:"women", sub:"Dresses", name:"Coral-Red Linen Dress",
+    img:"ember", alt:["d_drape"], fabric:"Linen", colour:"Coral red",
     d:"A loose dress with wide cape sleeves and side slits, falling below the knee." },
-  { id:"white-dress", status:"enquiry", cat:"women", sub:"Dresses", name:"White Two-Pocket Dress",
-    img:"lumen", alt:[], fabric:"Linen", colour:"White", price:null,
+  { id:"white-dress", status:"ready", parts:["dress"], sleeves:false, cat:"women", sub:"Dresses", name:"White Two-Pocket Dress",
+    img:"lumen", alt:[], fabric:"Linen", colour:"White",
     d:"A sleeveless dress with a notch neckline and two front pockets, finishing above the knee." },
-  { id:"moss-set", status:"enquiry", cat:"women", sub:"Two-piece sets", name:"Moss-Green Two-Piece",
-    img:"moss", alt:["moss2","d_waist"], fabric:null, colour:"Dark moss green", price:null,
+  { id:"moss-set", status:"ready", parts:["top","trousers"], sleeves:false, cat:"women", sub:"Two-piece sets", name:"Moss-Green Two-Piece",
+    img:"moss", alt:["moss2","d_waist"], fabric:null, colour:"Dark moss green",
     d:"A sleeveless top with side vents, worn with matching three-quarter trousers." },
-  { id:"cafe-shirt", status:"enquiry", cat:"women", sub:"Tops", name:"Café-au-Lait Two-Pocket Shirt",
-    img:"cafe", alt:["cafe_pocket"], fabric:"Cotton", colour:"Café au lait", price:null, with:["platinum-trousers"],
+  { id:"cafe-shirt", status:"ready", parts:["top"], cat:"women", sub:"Tops", name:"Café-au-Lait Two-Pocket Shirt",
+    img:"cafe", alt:["cafe_pocket"], fabric:"Cotton", colour:"Café au lait", with:["platinum-trousers"],
     d:"A boxy short-sleeved top with dropped shoulders and two deep patch pockets." },
-  { id:"carmine-top", status:"enquiry", cat:"women", sub:"Tops", name:"Japanese Carmine V-Neck Top",
-    img:"pair", pos:"18% 22%", zoom:1.6, alt:[], fabric:"Cotton", colour:"Japanese carmine", price:null, with:["platinum-trousers"],
+  { id:"carmine-top", status:"ready", parts:["top"], cat:"women", sub:"Tops", name:"Japanese Carmine V-Neck Top",
+    img:"pair", pos:"18% 22%", zoom:1.6, alt:[], fabric:"Cotton", colour:"Japanese carmine", with:["platinum-trousers"],
     d:"A boxy cap-sleeve top with a V-neck." },
-  { id:"mustard-shirt", status:"enquiry", cat:"women", sub:"Tops", name:"Mustard V-Neck Collared Shirt",
-    img:"harvest_seated", alt:[], fabric:"Cotton", colour:"Mustard", price:null, with:["lime-trousers"],
+  { id:"mustard-shirt", status:"ready", parts:["top"], cat:"women", sub:"Tops", name:"Mustard V-Neck Collared Shirt",
+    img:"harvest_seated", alt:[], fabric:"Cotton", colour:"Mustard", with:["lime-trousers"],
     d:"An oversized collared shirt with a V-placket and wide elbow-length sleeves." },
-  { id:"striped-top", status:"enquiry", cat:"women", sub:"Tops", name:"Sky-Blue Striped V-Neck Top",
-    img:"tide", alt:[], fabric:"Linen", colour:"Sky blue and white stripe", price:null,
+  { id:"striped-top", status:"ready", parts:["top"], cat:"women", sub:"Tops", name:"Sky-Blue Striped V-Neck Top",
+    img:"tide", alt:[], fabric:"Linen", colour:"Sky blue and white stripe",
     d:"A V-neck top with a shaped facing, a single button and cap sleeves." },
-  { id:"platinum-trousers", status:"enquiry", cat:"women", sub:"Trousers", name:"Platinum Hessian-Linen Trousers",
-    img:"cafe2", pos:"50% 80%", alt:[], fabric:"Hessian-linen", colour:"Platinum", price:null, with:["cafe-shirt","carmine-top"],
+  { id:"platinum-trousers", status:"ready", parts:["trousers"], cat:"women", sub:"Trousers", name:"Platinum Hessian-Linen Trousers",
+    img:"cafe2", pos:"50% 80%", alt:[], fabric:"Hessian-linen", colour:"Platinum", with:["cafe-shirt","carmine-top"],
     d:"Wide, straight-leg trousers with a full-length fall." },
-  { id:"lime-trousers", status:"enquiry", cat:"women", sub:"Trousers", name:"Lime-Green Linen Trousers",
-    img:"lime_sandal", alt:[], fabric:"Linen", colour:"Lime green", price:null, with:["mustard-shirt"],
+  { id:"lime-trousers", status:"ready", parts:["trousers"], cat:"women", sub:"Trousers", name:"Lime-Green Linen Trousers",
+    img:"lime_sandal", alt:[], fabric:"Linen", colour:"Lime green", with:["mustard-shirt"],
     d:"Full-length wide-leg trousers with a pressed front crease." },
   /* Documented, but the only photograph is a rear view of a cutout: not published until a suitable photo exists */
-  { id:"white-trousers", status:"hidden", cat:"women", sub:"Trousers", name:"White ¾ Linen Trousers",
-    img:null, alt:[], fabric:"Linen", colour:"White", price:null,
+  { id:"white-trousers", status:"hidden", parts:["trousers"], cat:"women", sub:"Trousers", name:"White ¾ Linen Trousers",
+    img:null, alt:[], fabric:"Linen", colour:"White",
     d:"Wide trousers cut to three-quarter length." },
 
   /* Men’s Wear: photographed in October 2026; garment details still to be confirmed by DÚNÍYÀ */
-  { id:"black-set", status:"enquiry", cat:"men", sub:"Two-piece sets", name:"Black Notch-Neck Two-Piece",
-    img:"onyx", alt:["noir_neck"], fabric:null, colour:"Black", price:null,
+  { id:"black-set", status:"ready", parts:["top","trousers"], cat:"men", sub:"Two-piece sets", name:"Black Notch-Neck Two-Piece",
+    img:"onyx", alt:["noir_neck"], fabric:null, colour:"Black",
     d:"A long-sleeved tunic with a notch neck and side slits, worn with relaxed drawstring trousers in the same colour." },
-  { id:"white-set", status:"enquiry", cat:"men", sub:"Two-piece sets", name:"White Stand-Collar Two-Piece",
-    img:"white", alt:["d_placket"], fabric:null, colour:"White", price:null,
+  { id:"white-set", status:"ready", parts:["top","trousers"], cat:"men", sub:"Two-piece sets", name:"White Stand-Collar Two-Piece",
+    img:"white", alt:["d_placket"], fabric:null, colour:"White",
     d:"A short-sleeved shirt with a stand collar and half placket, worn with straight trousers in the same colour." },
-  { id:"olive-shirt", status:"enquiry", cat:"men", sub:"Shirts", name:"Olive Printed Camp-Collar Shirt",
-    img:"olive2", alt:["olive"], fabric:null, colour:"Olive with a cream print", price:null, with:["cream-trousers"],
+  { id:"olive-shirt", status:"ready", parts:["top"], cat:"men", sub:"Shirts", name:"Olive Printed Camp-Collar Shirt",
+    img:"olive2", alt:["olive"], fabric:null, colour:"Olive with a cream print", with:["cream-trousers"],
     d:"A short-sleeved camp-collar shirt with turned-up cuffs, printed with a looping line motif." },
-  { id:"black-shirt", status:"enquiry", cat:"men", sub:"Shirts", name:"Black Textured Camp-Collar Shirt",
-    img:"noir_shirt", alt:[], fabric:null, colour:"Black", price:null, with:["cream-trousers"],
+  { id:"black-shirt", status:"ready", parts:["top"], cat:"men", sub:"Shirts", name:"Black Textured Camp-Collar Shirt",
+    img:"noir_shirt", alt:[], fabric:null, colour:"Black", with:["cream-trousers"],
     d:"A short-sleeved camp-collar shirt in a textured cloth, worn open at the neck." },
-  { id:"orange-tunic", status:"enquiry", cat:"men", sub:"Shirts", name:"Burnt-Orange Notch-Neck Tunic",
-    img:"pair", pos:"80% 22%", zoom:1.6, alt:[], fabric:null, colour:"Burnt orange", price:null, with:["cream-trousers"],
+  { id:"orange-tunic", status:"ready", parts:["top"], cat:"men", sub:"Shirts", name:"Burnt-Orange Notch-Neck Tunic",
+    img:"pair", pos:"80% 22%", zoom:1.6, alt:[], fabric:null, colour:"Burnt orange", with:["cream-trousers"],
     d:"A loose short-sleeved tunic with a notch neck and dropped shoulders." },
-  { id:"cream-trousers", status:"enquiry", cat:"men", sub:"Trousers", name:"Cream Textured Trousers",
-    img:"trio", pos:"82% 75%", alt:[], fabric:null, colour:"Cream", price:null,
+  { id:"cream-trousers", status:"ready", parts:["trousers"], cat:"men", sub:"Trousers", name:"Cream Textured Trousers",
+    img:"trio", pos:"82% 75%", alt:[], fabric:null, colour:"Cream",
     d:"Wide, relaxed trousers in a textured cream cloth." }
 ];
 
 const PUBLISHED = PRODUCTS.filter(p => p.status !== "hidden");
 const productById = id => PUBLISHED.find(p => p.id === id);
 const catLabel = p => `${CATEGORIES[p.cat].label} · ${p.sub}`;
-const priceText = p => p.price ? p.price : "Price on enquiry";
+const naira = n => "₦" + String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+const priceOf = p => PRICES[SUB_TYPE[p.sub]];
+const pieceCount = p => p.parts.length;
+const priceText = p => naira(priceOf(p));
+/* price of what the customer has chosen: one design, or a design plus one more piece */
+function orderPrice(list){
+  const ps = list.filter(Boolean);
+  if (!ps.length) return null;
+  const pieces = ps.reduce((n, p) => n + pieceCount(p), 0);
+  if (ps.length > 1 && pieces === 2) return PAIR_PRICE;
+  return ps.reduce((n, p) => n + priceOf(p), 0);
+}
 const fabricText = p => p.fabric || "Confirmed when you enquire";
 
 /* WhatsApp links. Every message names what the customer is asking about. */
 function waLink(text){ return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`; }
 function waProduct(list){
   const ps = [].concat(list);
-  const names = ps.map(p => `${p.name} (${CATEGORIES[p.cat].label})`).join(" and ");
+  const names = ps.map(p => `${p.name} (${CATEGORIES[p.cat].label}, ${priceText(p)})`).join(" and ");
   const url = SITE_URL + "collection#" + ps[0].id;
-  return waLink(`Hello DÚNÍYÀ, I'd like to enquire about the ${names} from your website.\n${url}`);
+  const pair = ps.length === 2 && orderPrice(ps) === PAIR_PRICE ? ` together (two pieces, ${naira(PAIR_PRICE)})` : "";
+  return waLink(`Hello DÚNÍYÀ, I'd like to order the ${names}${pair} from your website.\n${url}`);
 }
+/* Measurement fields for each kind of garment. Only the fields for the chosen garment are shown. */
+const MEASURE = {
+  top:      { label: "Top / shirt", fields: [["chest","Chest"],["shoulder","Shoulder"],["sleeve","Sleeve length"],["length","Top length"]] },
+  dress:    { label: "Dress",       fields: [["bust","Bust"],["waist","Waist"],["hip","Hip"],["sleeve","Sleeve length"],["length","Dress length"]] },
+  trousers: { label: "Trousers",    fields: [["waist","Waist"],["hip","Hip"],["length","Trouser length"]] }
+};
 const WA_TOPICS = {
   general: "Hello DÚNÍYÀ, I have a question about your clothing.",
   product: "Hello DÚNÍYÀ, I have a question about one of your designs.",
@@ -139,8 +164,8 @@ const WA_TOPICS = {
         <p class="pc-desc">${p.d}</p>
         <p class="pc-price">${priceText(p)}</p>
         <div class="pc-actions">
-          <a class="btn pc-wa" href="${waProduct(p)}" target="_blank" rel="noopener">Enquire on WhatsApp</a>
-          <button class="pc-more pc-open" type="button" data-i="${i}">Details</button>
+          <button class="btn pc-open" type="button" data-i="${i}">View &amp; order</button>
+          <a class="pc-more pc-wa" href="${waProduct(p)}" target="_blank" rel="noopener">Order on WhatsApp</a>
         </div>
       </article>`;
 
@@ -178,6 +203,7 @@ const WA_TOPICS = {
       grid.innerHTML = html;
       $$(".pc-open", grid).forEach(b => b.addEventListener("click", () => openLB(+b.dataset.i)));
       $("#countShown").textContent = visible.length;
+      $("#countShown").parentElement.hidden = cat === "commission";
     }
 
     function renderSubs(){
@@ -225,6 +251,9 @@ const WA_TOPICS = {
         if (cat !== "all") setCat("all");
         const j = visible.findIndex(v => v.id === a.dataset.goto); if (j > -1) openLB(j);
       }));
+      $("#lbPair").textContent = pieceCount(p) === 1
+        ? `Order it with a second piece, such as ${p.parts[0] === "trousers" ? "a shirt or top" : "trousers"}, and the two pieces together are ${naira(PAIR_PRICE)}.`
+        : "Price for the full two-piece outfit.";
       $("#lbWa").href = waProduct(p);
       $("#lbForm").href = "order?product=" + encodeURIComponent(p.id) + "#enquire";
       lb.hidden = false; document.body.style.overflow = "hidden";
@@ -281,28 +310,124 @@ const WA_TOPICS = {
     });
   }
 
-  /* enquiry form → Google Sheet via Apps Script */
+  /* order form: design → price → measurements → customisation → form (Google Sheet) or WhatsApp */
   const form = $("#eform");
   if (form){
     const qs = new URLSearchParams(location.search);
-    const wantedIds = new Set((qs.get("product") || "").split(",").filter(Boolean));
-    const wantedNames = new Set((qs.get("look") || "").toLowerCase().split(",").map(w => w.trim()).filter(Boolean));
-    const wanted = [...wantedIds].join(",");
-    const opt = p => `<label class="opt"><input type="checkbox" name="look" value="${p.name}"${wantedIds.has(p.id) || wantedNames.has(p.name.toLowerCase()) ? " checked" : ""}><span>${p.name}</span></label>`;
-    $("#f-looks").innerHTML = ["women", "men"].map(c => `
-      <span class="opt-group">${CATEGORIES[c].label}</span>${PUBLISHED.filter(p => p.cat === c).map(opt).join("")}`).join("")
-      + `<span class="opt-group">Other</span><label class="opt"><input type="checkbox" name="look" value="Not sure yet"><span>Not sure yet</span></label>`;
-    const req = qs.get("request");
-    if (req === "commission"){ const r = $('input[name="request"][value="Custom commission"]'); if (r) r.checked = true; }
-    else if (wantedIds.size || wantedNames.size){ const r = $('input[name="request"][value="An existing design"]'); if (r) r.checked = true; }
-    const enq = $("#enquiry");
-    const chosen = [...wantedIds].map(productById).filter(Boolean);
-    if (enq && chosen.length){ enq.textContent = `You’re enquiring about: ${chosen.map(p => p.name).join(", ")}.`; enq.hidden = false; }
+    const ids = (qs.get("product") || "").split(",").filter(id => productById(id));
+    const dSel = $("#f-design"), pSel = $("#f-pair");
+    const optHtml = (filter, label) => ["women", "men"].map(c => {
+      const ps = PUBLISHED.filter(p => p.cat === c && filter(p));
+      return ps.length ? `<optgroup label="${CATEGORIES[c].label}">${ps.map(p => `<option value="${p.id}">${label(p)}</option>`).join("")}</optgroup>` : "";
+    }).join("");
+    dSel.innerHTML = `<option value="">Choose a design…</option>` + optHtml(() => true, p => `${p.name}, ${priceText(p)}`)
+      + `<optgroup label="${CATEGORIES.commission.label}"><option value="commission">Something not in the collection (custom commission)</option></optgroup>`;
+
+    const design = () => productById(dSel.value);
+    const pair = () => productById(pSel.value);
+    const chosen = () => [design(), pair()].filter(Boolean);
+    const mode = () => (form.querySelector('input[name="measure"]:checked') || {}).value;
+    const unit = () => (form.querySelector('input[name="unit"]:checked') || {}).value || "inches";
+
+    function fillPair(){
+      const d = design(), keep = pSel.value;
+      const show = d && pieceCount(d) === 1;
+      $("#pairField").hidden = !show;
+      if (!show){ pSel.value = ""; return; }
+      pSel.innerHTML = `<option value="">No, just this piece</option>` + optHtml(p => pieceCount(p) === 1 && p.id !== d.id, p => p.name);
+      if (keep && keep !== d.id && productById(keep)) pSel.value = keep;
+    }
+
+    function measureParts(){
+      // one block per garment: {key, label, sleeves}
+      const out = [];
+      chosen().forEach(p => p.parts.forEach(part => out.push({ part, label: MEASURE[part].label + (chosen().length > 1 ? ` · ${p.name}` : ""), sleeves: p.sleeves !== false, key: `${p.id}-${part}` })));
+      return out;
+    }
+    function renderMeasure(){
+      const box = $("#f-meas"), saved = {};
+      $$("input", box).forEach(i => saved[i.name] = i.value);
+      const blocks = measureParts();
+      box.innerHTML = blocks.map(b => `
+        <div class="m-block"><span class="opt-group">${b.label}</span><div class="m-grid">
+        ${MEASURE[b.part].fields.filter(([k]) => k !== "sleeve" || b.sleeves).map(([k, l]) =>
+          `<label class="m-f"><span>${l}</span><input name="m:${b.key}:${k}" data-label="${l}" inputmode="decimal" maxlength="6" autocomplete="off" value="${saved[`m:${b.key}:${k}`] || ""}"></label>`).join("")}
+        </div></div>`).join("");
+      $("#measWrap").hidden = !blocks.length || mode() !== "enter";
+    }
+
+    function update(){
+      const d = design(), com = dSel.value === "commission";
+      fillPair();
+      const list = chosen(), price = orderPrice(list);
+      const box = $("#f-price");
+      if (com) box.innerHTML = `<b>Custom commission</b><span>We look at your idea first and confirm whether it can be made and what it will cost.</span>`;
+      else if (!d) box.innerHTML = `<b>Prices</b><span>Shirts and tops ${naira(PRICES.top)} · Trousers ${naira(PRICES.trousers)} · Dresses ${naira(PRICES.dress)} · Any two pieces together ${naira(PAIR_PRICE)}</span>`;
+      else if (list.length > 1) box.innerHTML = `<b>${naira(price)}</b><span>${list.map(p => p.name).join(" with ")}: any two pieces together are ${naira(PAIR_PRICE)}.</span>`;
+      else box.innerHTML = `<b>${naira(price)}</b><span>${d.name}${pieceCount(d) === 2 ? ", full two-piece outfit" : ""}.</span>`;
+      $("#sizeField").hidden = com || !d;
+      renderMeasure();
+      $("#enquiry").hidden = !list.length;
+      $("#enquiry").textContent = list.length ? `You’re ordering: ${list.map(p => p.name).join(" with ")}.` : "";
+    }
+    dSel.addEventListener("change", update);
+    pSel.addEventListener("change", update);
+    $$('input[name="measure"]').forEach(r => r.addEventListener("change", renderMeasure));
+
+    if (ids[0]) dSel.value = ids[0];
+    else if (qs.get("request") === "commission") dSel.value = "commission";
+    update();
+    if (ids[1] && !$("#pairField").hidden){ pSel.value = ids[1]; update(); }
+
+    // everything the customer chose, as lines for WhatsApp and the Sheet
+    function summary(){
+      const list = chosen(), lines = [];
+      if (dSel.value === "commission") lines.push("Custom commission (not in the collection)");
+      else if (list.length){
+        lines.push(`Design: ${list.map(p => `${p.name} (${CATEGORIES[p.cat].label})`).join(" with ")}`);
+        lines.push(`Price: ${naira(orderPrice(list))}${list.length > 1 ? " (two pieces together)" : ""}`);
+        lines.push(`Link: ${SITE_URL}collection#${list[0].id}`);
+        if (mode() === "help") lines.push("Measurements: please help me measure");
+        else {
+          const ms = measureParts().map(b => {
+            const vals = $$(`#f-meas input[name^="m:${b.key}:"]`).filter(i => i.value.trim()).map(i => `${i.dataset.label} ${i.value.trim()}`);
+            return vals.length ? `${b.label}: ${vals.join(", ")}` : "";
+          }).filter(Boolean);
+          if (ms.length) lines.push(`Measurements (${unit()}): ${ms.join("; ")}`);
+        }
+      }
+      const cz = $$('input[name="custom"]:checked').map(i => i.value);
+      const czText = $("#f-custom").value.trim();
+      if (cz.length || czText) lines.push(`Customisation: ${[cz.join(", "), czText].filter(Boolean).join(". ")}`);
+      if ($("#f-needby").value) lines.push(`Needed by: ${$("#f-needby").value}`);
+      if ($("#f-message").value.trim()) lines.push(`Notes: ${$("#f-message").value.trim()}`);
+      return lines;
+    }
 
     const status = $("#f-status"), btn = $("#f-submit");
     let formStart = performance.now();
     const setErr = (id, msg) => { const f = $("#f-" + id).closest(".field"); f.classList.toggle("bad", !!msg); $("#e-" + id).textContent = msg || ""; };
+    function checkOrder(){
+      let err = "";
+      if (!dSel.value) err = "Please choose a design, or choose a custom commission.";
+      setErr("design", err);
+      let merr = "";
+      if (!err && dSel.value !== "commission"){
+        const ins = $$("#f-meas input");
+        if (!mode()) merr = "Please choose how you’ll give your measurements.";
+        else if (mode() === "enter"){
+          const bad = ins.find(i => i.value.trim() && !/^\d{1,3}([.,]\d{1,2})?$/.test(i.value.trim()));
+          if (bad) merr = `Please enter ${bad.dataset.label.toLowerCase()} as a number, e.g. 38 or 38.5.`;
+          else if (!ins.some(i => i.value.trim())) merr = "Please add your measurements, or choose “Please help me measure”.";
+        }
+      }
+      $("#e-measure").textContent = merr; $("#sizeField").classList.toggle("bad", !!merr);
+      if (err){ dSel.focus(); return false; }
+      if (merr){ ( $$("#f-meas input").find(i => !i.value.trim()) || $('input[name="measure"]') ).focus(); return false; }
+      return true;
+    }
     const validate = () => {
+      if (!checkOrder()) return false;
       const v = id => $("#f-" + id).value.trim();
       const digits = v("phone").replace(/\D/g, "");
       const errs = {
@@ -317,21 +442,35 @@ const WA_TOPICS = {
       return !first;
     };
     ["name","phone","email","city"].forEach(id => $("#f-" + id).addEventListener("input", () => setErr(id, "")));
+    dSel.addEventListener("change", () => setErr("design", ""));
+
+    // continue on WhatsApp with everything filled in so far
+    $("#f-wa").addEventListener("click", e => {
+      e.preventDefault();
+      if (!checkOrder()) return;
+      const who = [$("#f-name").value.trim(), $("#f-city").value.trim()].filter(Boolean).join(", ");
+      const text = `Hello DÚNÍYÀ, I'd like to place an order${who ? ` (${who})` : ""}.\n` + summary().join("\n");
+      window.open(waLink(text), "_blank", "noopener");
+    });
 
     form.addEventListener("submit", async e => {
       e.preventDefault();
       status.textContent = "";
       if (!validate()) return;
       if (!FORM_ENDPOINT){
-        status.textContent = "The form isn’t connected yet. Please message us on WhatsApp below.";
+        status.textContent = "The form isn’t connected yet. Please use “Continue on WhatsApp”.";
         return;
       }
-      const fd = new FormData(form);
+      const list = chosen();
+      const com = dSel.value === "commission";
+      const custom = $$('input[name="custom"]:checked').length || $("#f-custom").value.trim();
       const body = new URLSearchParams();
-      for (const [k, v] of fd) if (k !== "look" && k !== "message") body.append(k, v);
-      body.append("message", `Request: ${fd.get("request") || "Not stated"}` + (fd.get("message") ? `. ${fd.get("message")}` : ""));
-      body.append("looks", fd.getAll("look").join(", "));
-      body.append("page", "order" + (wanted ? "?product=" + wanted : ""));
+      ["name","phone","email","city","needby","website"].forEach(k => body.append(k, $("#f-" + k).value));
+      body.append("contact", (form.querySelector('input[name="contact"]:checked') || {}).value || "WhatsApp");
+      body.append("looks", com ? "Custom commission" : list.map(p => p.name).join(" + "));
+      body.append("fitting", com ? "" : mode() === "help" ? "Help with measurements" : `Measurements given (${unit()})`);
+      body.append("message", `Request: ${com ? "Custom commission" : custom ? "Order with customisation" : "Order"} | ` + summary().join(" | "));
+      body.append("page", "order" + (list.length ? "?product=" + list.map(p => p.id).join(",") : ""));
       body.append("t", String(Math.round(performance.now() - formStart)));
 
       btn.disabled = true; btn.textContent = "Sending…";
@@ -341,15 +480,16 @@ const WA_TOPICS = {
         result = await res.json();
       } catch (err) {
         try { await fetch(FORM_ENDPOINT, { method: "POST", body, mode: "no-cors" }); result = { ok: true, ref: "" }; }
-        catch (err2) { result = { ok: false, error: "We couldn’t send your enquiry. Check your connection and try again, or message us on WhatsApp." }; }
+        catch (err2) { result = { ok: false, error: "We couldn’t send your order. Check your connection and try again, or use “Continue on WhatsApp”." }; }
       }
-      btn.disabled = false; btn.textContent = "Send enquiry";
+      btn.disabled = false; btn.textContent = "Send order";
       if (!result || !result.ok){ status.textContent = (result && result.error) || "Something went wrong. Please try again."; return; }
 
       const name = $("#f-name").value.trim().split(" ")[0];
-      const how = (fd.get("contact") === "Call") ? "call you" : (fd.get("contact") === "Either" ? "call or WhatsApp you" : "WhatsApp you");
+      const c = (form.querySelector('input[name="contact"]:checked') || {}).value;
+      const how = c === "Call" ? "call you" : (c === "Either" ? "call or WhatsApp you" : "WhatsApp you");
       $("#d-title").textContent = `Thank you, ${name}.`;
-      $("#d-text").textContent = `A person from the house will ${how} on ${$("#f-phone").value.trim()}.` + ($("#f-email").value.trim() ? " We’ve also sent a confirmation to your email." : "");
+      $("#d-text").textContent = `A person from the house will ${how} on ${$("#f-phone").value.trim()} to confirm your order.` + ($("#f-email").value.trim() ? " We’ve also sent a confirmation to your email." : "");
       $("#d-ref").textContent = result.ref ? `Your reference: ${result.ref}` : "";
       form.hidden = true; $("#f-done").hidden = false; $("#f-done").focus();
     });

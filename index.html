@@ -6,10 +6,10 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://script.google.com https://script.googleusercontent.com; form-action 'self'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>DÚNÍYÀ</title>
-<meta name="description" content="DÚNÍYÀ is a clothing house in Lagos designing modern, minimal clothing for women and men, made to order. Enquire on WhatsApp.">
+<meta name="description" content="DÚNÍYÀ is a clothing house in Lagos making modern, minimal clothing for women and men to order. Shirts and trousers from ₦20,000. Order on WhatsApp.">
 <meta name="theme-color" content="#0A1F1B">
 <meta property="og:title" content="DÚNÍYÀ">
-<meta property="og:description" content="DÚNÍYÀ is a clothing house in Lagos designing modern, minimal clothing for women and men, made to order. Enquire on WhatsApp.">
+<meta property="og:description" content="DÚNÍYÀ is a clothing house in Lagos making modern, minimal clothing for women and men to order. Shirts and trousers from ₦20,000. Order on WhatsApp.">
 <meta property="og:image" content="assets/img/photos/hero.jpg">
 <link rel="icon" type="image/png" href="assets/img/logo/seal-cream.png">
 <link rel="preload" href="assets/fonts/gloock-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -20,16 +20,15 @@
 <header class="nav">
   <div class="wrap">
     <nav class="nav-links nav-left label" aria-label="Primary">
-      <a href="house">The House</a>
       <a href="collection">Collection</a>
-      <a href="lookbook">Lookbook</a>
+      <a href="order">How to Order</a>
     </nav>
     <a class="brand" href="./" aria-label="Dúníyà home"><img src="assets/img/logo/seal-cream.png" alt="Dúníyà"></a>
     <div class="nav-right">
       <nav class="nav-links label" aria-label="Secondary">
-        <a href="craft">Craft</a>
+        <a href="house">The House</a>
       </nav>
-      <a class="btn" href="order">Order</a>
+      <a class="btn" data-wa="general" href="order#whatsapp">WhatsApp</a>
       <button class="menu-btn" id="menuOpen" aria-label="Open menu"><span></span><span></span><span></span></button>
     </div>
   </div>
@@ -42,11 +41,9 @@
   </div>
   <nav>
     <a href="./" aria-current="page">Home</a>
-    <a href="house">The House</a>
     <a href="collection">Collection</a>
-    <a href="lookbook">Lookbook</a>
-    <a href="craft">Craft</a>
-    <a href="order">Order</a>
+    <a href="order">How to Order</a>
+    <a href="house">The House</a>
   </nav>
   <div class="overlay-foot label"><span>Lagos, Nigeria</span><a data-wa="general" href="order#whatsapp">WhatsApp us</a></div>
 </div>
@@ -67,9 +64,9 @@
       <h2>Clothing for those who inhabit the world <em class="c">on purpose.</em></h2>
       <div class="prose">
         <p>DÚNÍYÀ means “the world”. We design modern, minimal clothing for women and men, and make each piece to order.</p>
-        <p>Choose a design from the collection, ask for a variation, or bring us an idea. We confirm the details with you before anything is made.</p>
+        <p>Choose a design from the collection, give us your measurements, and order on WhatsApp or through the order form.</p>
       </div>
-      <span style="display:flex;gap:26px;flex-wrap:wrap"><a class="arrow" href="collection">See the collection</a><a class="arrow" href="order">How ordering works</a></span>
+      <span style="display:flex;gap:26px;flex-wrap:wrap"><a class="arrow" href="collection">See the collection</a><a class="arrow" href="order">How to order</a></span>
     </div>
     <figure class="st-a rv zoom"><img src="assets/img/photos/plat4.jpg" alt="Portrait of a model in the platinum sleeveless dress, arms folded" loading="lazy"><figcaption class="cap">Platinum Sleeveless Dress</figcaption></figure>
     <figure class="st-b rv"><img src="assets/img/photos/noir_shirt.jpg" alt="Close view of a man adjusting the collar of a black textured camp-collar shirt" loading="lazy"></figure>
@@ -99,8 +96,10 @@
     <aside class="slc-panel">
       <div class="slc-head"><span class="slc-count-pieces"></span><button class="slc-close" type="button">Close ×</button></div>
       <ul class="slc-list"></ul>
-      <a class="btn slc-enquire" href="order#whatsapp" target="_blank" rel="noopener">Enquire on WhatsApp</a>
-      <p class="slc-note">Made to order. Fabric availability, measurements, price and timing are confirmed with you before anything is made.</p>
+      <p class="slc-together" hidden></p>
+      <a class="btn slc-enquire" href="order#whatsapp" target="_blank" rel="noopener">Order on WhatsApp</a>
+      <a class="arrow slc-order" href="order#enquire">Order with your measurements</a>
+      <p class="slc-note">Made to order from your measurements. Fabric availability and any changes are confirmed with you before production.</p>
     </aside>
   </div>
 </section>
@@ -137,25 +136,26 @@
 <section class="feature flip stone">
   <div class="f-img"><figure><img src="assets/img/photos/harvest_seated.jpg" alt="Model in a mustard collared shirt and lime-green linen trousers, seated" loading="lazy"></figure></div>
   <div class="f-text rv">
-    <span class="label">Made to order</span>
-    <h2 style="color:var(--forest)">Three ways <em class="c">to order.</em></h2>
-    <ol class="ways">
-      <li><b>An existing design</b><span>Choose a piece from the collection as it is shown.</span></li>
-      <li><b>A variation</b><span>Ask about a different fabric, colour or length on an existing design.</span></li>
-      <li><b>A custom commission</b><span>Send us a reference or an idea and we will tell you what is possible.</span></li>
-    </ol>
-    <p style="color:var(--mute-dark);max-width:46ch">Every piece is made after you enquire. We confirm fabric availability, measurements, price and timing with you before production begins.</p>
-    <span style="display:flex;gap:14px;flex-wrap:wrap"><a class="btn" data-wa="general" href="order#whatsapp">Enquire on WhatsApp</a><a class="btn ghost" href="order" style="color:var(--forest)">How ordering works</a></span>
+    <span class="label">Prices · made to order</span>
+    <h2 style="color:var(--forest)">Simple <em class="c">prices.</em></h2>
+    <dl class="prices">
+      <div><dt>Shirt or top</dt><dd>₦20,000</dd></div>
+      <div><dt>Trousers</dt><dd>₦20,000</dd></div>
+      <div><dt>Dress</dt><dd>₦35,000</dd></div>
+      <div><dt>Any two-piece outfit</dt><dd>₦40,000</dd></div>
+    </dl>
+    <p style="color:var(--mute-dark);max-width:46ch">The two-piece price applies to any two pieces ordered together. Each piece is made to your measurements. If you ask for a change that affects the price, we confirm the extra cost with you before production.</p>
+    <span style="display:flex;gap:14px;flex-wrap:wrap"><a class="btn" href="collection">Choose a design</a><a class="btn ghost" href="order" style="color:var(--forest)">How to order</a></span>
   </div>
 </section>
 
 <section class="night sec">
   <div class="wrap">
     <div class="doors">
-      <a class="door rv" href="house"><img src="assets/img/photos/plat_front.jpg" alt="" loading="lazy"><span><span class="label">I</span><h3>The House</h3></span></a>
-      <a class="door rv" href="collection"><img src="assets/img/photos/onyx.jpg" alt="" loading="lazy"><span><span class="label">II</span><h3>Collection</h3></span></a>
-      <a class="door rv" href="lookbook"><img src="assets/img/photos/moss.jpg" alt="" loading="lazy"><span><span class="label">III</span><h3>Lookbook</h3></span></a>
-      <a class="door rv" href="craft"><img src="assets/img/photos/lumen.jpg" alt="" loading="lazy"><span><span class="label">IV</span><h3>Craft</h3></span></a>
+      <a class="door rv" href="collection#women"><img src="assets/img/photos/plat_front.jpg" alt="" loading="lazy"><span><span class="label">I</span><h3>Women’s Wear</h3></span></a>
+      <a class="door rv" href="collection#men"><img src="assets/img/photos/onyx.jpg" alt="" loading="lazy"><span><span class="label">II</span><h3>Men’s Wear</h3></span></a>
+      <a class="door rv" href="order"><img src="assets/img/photos/moss.jpg" alt="" loading="lazy"><span><span class="label">III</span><h3>How to Order</h3></span></a>
+      <a class="door rv" href="house"><img src="assets/img/photos/lumen.jpg" alt="" loading="lazy"><span><span class="label">IV</span><h3>The House</h3></span></a>
     </div>
   </div>
 </section>
@@ -163,7 +163,7 @@
 <section class="forest sec grain">
   <div class="wrap cta-band">
     <h2>Made for you,<br><em class="c">to order.</em></h2>
-    <span style="display:flex;gap:14px;flex-wrap:wrap"><a class="btn" data-wa="general" href="order#whatsapp">Enquire on WhatsApp</a><a class="btn ghost" href="order">How to order</a></span>
+    <span style="display:flex;gap:14px;flex-wrap:wrap"><a class="btn" href="collection">Choose a design</a><a class="btn ghost" data-wa="general" href="order#whatsapp">WhatsApp us</a></span>
   </div>
 </section>
 </main>
@@ -172,9 +172,9 @@
     <div class="foot-top">
       <img class="seal" src="assets/img/logo/seal-cream.png" alt="">
       <nav class="foot-nav" aria-label="Footer">
+        <a href="collection">Collection</a><a href="order">How to Order</a>
         <a href="house">The House</a><a href="lookbook">Lookbook</a>
-        <a href="collection">Collection</a><a href="craft">Craft</a>
-        <a href="order">Order</a><a href="collection#custom-commissions">Custom commissions</a>
+        <a href="craft">Craft</a><a href="collection#custom-commissions">Custom commissions</a>
       </nav>
       <div class="foot-contact">
         <span class="label" style="color:var(--copper-soft)">Lagos, Nigeria</span>
@@ -189,6 +189,7 @@
     </div>
   </div>
 </footer>
+<a class="btn wa-float" data-wa="general" href="order#whatsapp">WhatsApp</a>
 <script src="assets/js/main.js"></script>
 <script src="assets/js/salon.js"></script>
 </body>

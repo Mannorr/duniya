@@ -6,10 +6,10 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://script.google.com https://script.googleusercontent.com; form-action 'self'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Collection · DÚNÍYÀ</title>
-<meta name="description" content="Women’s and men’s designs from DÚNÍYÀ, made to order. Enquire about any design on WhatsApp.">
+<meta name="description" content="Women’s and men’s designs from DÚNÍYÀ, made to order. Shirts and trousers ₦20,000, dresses ₦35,000, two-piece outfits ₦40,000.">
 <meta name="theme-color" content="#0A1F1B">
 <meta property="og:title" content="Collection · DÚNÍYÀ">
-<meta property="og:description" content="Women’s and men’s designs from DÚNÍYÀ, made to order. Enquire about any design on WhatsApp.">
+<meta property="og:description" content="Women’s and men’s designs from DÚNÍYÀ, made to order. Shirts and trousers ₦20,000, dresses ₦35,000, two-piece outfits ₦40,000.">
 <meta property="og:image" content="assets/img/photos/plat_front.jpg">
 <link rel="icon" type="image/png" href="assets/img/logo/seal-cream.png">
 <link rel="preload" href="assets/fonts/gloock-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -20,16 +20,15 @@
 <header class="nav">
   <div class="wrap">
     <nav class="nav-links nav-left label" aria-label="Primary">
-      <a href="house">The House</a>
       <a href="collection" aria-current="page">Collection</a>
-      <a href="lookbook">Lookbook</a>
+      <a href="order">How to Order</a>
     </nav>
     <a class="brand" href="./" aria-label="Dúníyà home"><img src="assets/img/logo/seal-cream.png" alt="Dúníyà"></a>
     <div class="nav-right">
       <nav class="nav-links label" aria-label="Secondary">
-        <a href="craft">Craft</a>
+        <a href="house">The House</a>
       </nav>
-      <a class="btn" href="order">Order</a>
+      <a class="btn" data-wa="general" href="order#whatsapp">WhatsApp</a>
       <button class="menu-btn" id="menuOpen" aria-label="Open menu"><span></span><span></span><span></span></button>
     </div>
   </div>
@@ -42,11 +41,9 @@
   </div>
   <nav>
     <a href="./">Home</a>
-    <a href="house">The House</a>
     <a href="collection" aria-current="page">Collection</a>
-    <a href="lookbook">Lookbook</a>
-    <a href="craft">Craft</a>
-    <a href="order">Order</a>
+    <a href="order">How to Order</a>
+    <a href="house">The House</a>
   </nav>
   <div class="overlay-foot label"><span>Lagos, Nigeria</span><a data-wa="general" href="order#whatsapp">WhatsApp us</a></div>
 </div>
@@ -75,8 +72,10 @@
     <aside class="slc-panel">
       <div class="slc-head"><span class="slc-count-pieces"></span><button class="slc-close" type="button">Close ×</button></div>
       <ul class="slc-list"></ul>
-      <a class="btn slc-enquire" href="order#whatsapp" target="_blank" rel="noopener">Enquire on WhatsApp</a>
-      <p class="slc-note">Made to order. Fabric availability, measurements, price and timing are confirmed with you before anything is made.</p>
+      <p class="slc-together" hidden></p>
+      <a class="btn slc-enquire" href="order#whatsapp" target="_blank" rel="noopener">Order on WhatsApp</a>
+      <a class="arrow slc-order" href="order#enquire">Order with your measurements</a>
+      <p class="slc-note">Made to order from your measurements. Fabric availability and any changes are confirmed with you before production.</p>
     </aside>
   </div>
 </section>
@@ -87,8 +86,8 @@
       <h2 class="ph-title" style="margin-top:18px">Every <em>design.</em></h2>
     </div>
     <div style="display:grid;gap:18px">
-      <p class="ph-lede">Every design is made to order. Choose one as shown, ask about a variation, or send us your own idea.</p>
-      <p class="ph-lede" style="font-size:15px">Prices, fabric availability, measurements and timing are confirmed with you on WhatsApp before anything is made.</p>
+      <p class="ph-lede">Every design is made to order, to your measurements. Shirts, tops and trousers ₦20,000 · Dresses ₦35,000 · Any two pieces together ₦40,000.</p>
+      <p class="ph-lede" style="font-size:15px">Open a design to see its details, then order on WhatsApp or with the order form.</p>
     </div>
   </div>
 </section>
@@ -133,17 +132,18 @@
     <dl>
       <dt>Fabric</dt><dd id="lbFabric"></dd>
       <dt>Colour</dt><dd id="lbColour"></dd>
-      <dt>Price</dt><dd id="lbPrice"></dd>
+      <dt>Price</dt><dd id="lbPrice" class="lb-price"></dd>
       <dt id="lbWithRow">Shown with</dt><dd id="lbWith"></dd>
     </dl>
     <div class="lb-note">
-      <b>Made to order.</b> This design is made after you enquire. We confirm fabric availability, your measurements, the price and timing with you before production. If the photographed fabric or colour is no longer available, we will tell you.
+      <p id="lbPair"></p>
+      <b>Made to order.</b> This design is made to your measurements after you order. If the photographed fabric or colour is no longer available, we will tell you. Changes to fabric, length or fit are subject to confirmation, and any extra cost is agreed with you before production.
     </div>
     <div class="lb-cta">
-      <a class="btn" id="lbWa" href="order#whatsapp" target="_blank" rel="noopener">Enquire on WhatsApp</a>
-      <a class="arrow" id="lbForm" href="order#enquire">Or send an enquiry form</a>
+      <a class="btn" id="lbForm" href="order#enquire">Order this design</a>
+      <a class="btn ghost" id="lbWa" href="order#whatsapp" target="_blank" rel="noopener">Order on WhatsApp</a>
     </div>
-    <p class="lb-how">Tapping “Enquire on WhatsApp” opens a message to DÚNÍYÀ that already names this design.</p>
+    <p class="lb-how">“Order this design” lets you add your measurements and any changes. “Order on WhatsApp” opens a message that already names this design and its price.</p>
     <div class="lb-nav"><button id="lbPrev">← Previous</button><button id="lbNext">Next →</button></div>
   </div>
 </div>
@@ -153,9 +153,9 @@
     <div class="foot-top">
       <img class="seal" src="assets/img/logo/seal-cream.png" alt="">
       <nav class="foot-nav" aria-label="Footer">
+        <a href="collection">Collection</a><a href="order">How to Order</a>
         <a href="house">The House</a><a href="lookbook">Lookbook</a>
-        <a href="collection">Collection</a><a href="craft">Craft</a>
-        <a href="order">Order</a><a href="collection#custom-commissions">Custom commissions</a>
+        <a href="craft">Craft</a><a href="collection#custom-commissions">Custom commissions</a>
       </nav>
       <div class="foot-contact">
         <span class="label" style="color:var(--copper-soft)">Lagos, Nigeria</span>
@@ -170,6 +170,7 @@
     </div>
   </div>
 </footer>
+<a class="btn wa-float" data-wa="general" href="order#whatsapp">WhatsApp</a>
 <script src="assets/js/main.js"></script>
 <script src="assets/js/salon.js"></script>
 </body>

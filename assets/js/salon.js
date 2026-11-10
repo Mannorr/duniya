@@ -183,7 +183,11 @@
     q(".slc-count-pieces").textContent = e.data.length === 1 ? "One design" : `${e.data.length} designs shown`;
     q(".slc-list").innerHTML = e.data.map(p => `
       <li><span class="lbl">${catLabel(p)}</span><a href="collection#${p.id}"><b>${p.name}</b></a><i>Fabric: ${fabricText(p)}</i><i>${priceText(p)}</i></li>`).join("");
+    const two = e.data.length === 2 && orderPrice(e.data) === PAIR_PRICE;
+    q(".slc-together").textContent = two ? `Both pieces together: ${naira(PAIR_PRICE)}` : "";
+    q(".slc-together").hidden = !two;
     q(".slc-enquire").href = waProduct(e.data);
+    q(".slc-order").href = "order?product=" + (two ? e.data.map(p => p.id).join(",") : e.data[0].id) + "#enquire";
 
     if (!closer.open){
       closer.open = true; closer.hidden = false;

@@ -20,16 +20,15 @@
 <header class="nav">
   <div class="wrap">
     <nav class="nav-links nav-left label" aria-label="Primary">
-      <a href="house" aria-current="page">The House</a>
       <a href="collection">Collection</a>
-      <a href="lookbook">Lookbook</a>
+      <a href="order">How to Order</a>
     </nav>
     <a class="brand" href="./" aria-label="Dúníyà home"><img src="assets/img/logo/seal-cream.png" alt="Dúníyà"></a>
     <div class="nav-right">
       <nav class="nav-links label" aria-label="Secondary">
-        <a href="craft">Craft</a>
+        <a href="house" aria-current="page">The House</a>
       </nav>
-      <a class="btn" href="order">Order</a>
+      <a class="btn" data-wa="general" href="order#whatsapp">WhatsApp</a>
       <button class="menu-btn" id="menuOpen" aria-label="Open menu"><span></span><span></span><span></span></button>
     </div>
   </div>
@@ -42,11 +41,9 @@
   </div>
   <nav>
     <a href="./">Home</a>
-    <a href="house" aria-current="page">The House</a>
     <a href="collection">Collection</a>
-    <a href="lookbook">Lookbook</a>
-    <a href="craft">Craft</a>
-    <a href="order">Order</a>
+    <a href="order">How to Order</a>
+    <a href="house" aria-current="page">The House</a>
   </nav>
   <div class="overlay-foot label"><span>Lagos, Nigeria</span><a data-wa="general" href="order#whatsapp">WhatsApp us</a></div>
 </div>
@@ -66,7 +63,7 @@
     <h2 class="pull rv">Clothing chosen <em>with care.</em></h2>
     <div class="prose rv">
       <p>We design for people who think about what they wear. Our garments are relaxed but deliberate: clear shapes, considered proportions, and details that each have a reason to be there.</p>
-      <p>You should be able to recognise a DÚNÍYÀ piece by its silhouette, fabric and proportion, not by a logo.</p>
+      <p>The collection has women’s and men’s shirts, tops, trousers, dresses and two-piece outfits. Each piece is made to your measurements after you order.</p>
     </div>
   </div>
 </section>
@@ -79,41 +76,10 @@
   </div>
 </section>
 
-<section class="stone sec">
-  <div class="wrap">
-    <div class="act-head" style="grid-template-columns:1fr;margin-bottom:clamp(32px,4vw,56px)">
-      <div><span class="label">How we work</span><h2 style="color:var(--forest);margin-top:16px;font-size:clamp(40px,5.4vw,76px)">The house and its garments</h2></div>
-    </div>
-    <div class="values">
-      <div class="value rv"><span class="n">01</span><h3>Intentional design</h3><p>Every line, pocket and seam is considered. If a detail has no purpose, we leave it out.</p></div>
-      <div class="value rv"><span class="n">02</span><h3>Cultural expression</h3><p>Our designs begin in Lagos and draw on where we come from, while staying open to the wider world our name describes.</p></div>
-      <div class="value rv"><span class="n">03</span><h3>Craftsmanship</h3><p>Garments are made through our tailoring network, with attention to how each piece is cut, finished and worn.</p></div>
-      <div class="value rv"><span class="n">04</span><h3>Made to order</h3><p>We make a garment after you enquire, so we can confirm the fabric, your measurements and the details with you first.</p></div>
-      <div class="value rv"><span class="n">05</span><h3>Women’s and men’s</h3><p>Both collections come from the same house and the same approach, each with its own shapes and proportions.</p></div>
-      <div class="value rv"><span class="n">06</span><h3>Your idea, considered</h3><p>Besides our own designs, you can ask for a variation or bring us a reference for a custom commission.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="night sec grain">
-  <div class="wrap expr">
-    <div class="expr-imgs">
-      <figure class="rv zoom"><img src="assets/img/photos/ember.jpg" alt="Woman in the coral-red linen dress looking back over her shoulder" loading="lazy"></figure>
-      <figure class="rv zoom"><img src="assets/img/photos/moss2.jpg" alt="Back view of the moss-green two-piece" loading="lazy"></figure>
-    </div>
-    <div class="rv" style="display:grid;gap:24px">
-      <span class="label">Women’s Wear</span>
-      <h2 style="font-size:clamp(44px,5.6vw,80px)">Same house.<br><em class="c">Different expression.</em></h2>
-      <p style="color:var(--mute-light);max-width:48ch">Our women’s designs are their own, not a softer version of the men’s. They are shaped through silhouette, drape, proportion and movement rather than added decoration.</p>
-      <span style="display:flex;gap:14px;flex-wrap:wrap"><a class="btn" href="collection#women">See Women’s Wear</a><a class="btn ghost" href="collection#men">See Men’s Wear</a></span>
-    </div>
-  </div>
-</section>
-
 <section class="day sec">
   <div class="wrap cta-band">
     <h2 style="color:var(--forest)">See what the house <em class="c">makes.</em></h2>
-    <a class="btn" href="collection">View the collection</a>
+    <span style="display:flex;gap:14px;flex-wrap:wrap"><a class="btn" href="collection">View the collection</a><a class="btn ghost" href="order" style="color:var(--forest)">How to order</a></span>
   </div>
 </section>
 </main>
@@ -122,9 +88,9 @@
     <div class="foot-top">
       <img class="seal" src="assets/img/logo/seal-cream.png" alt="">
       <nav class="foot-nav" aria-label="Footer">
+        <a href="collection">Collection</a><a href="order">How to Order</a>
         <a href="house">The House</a><a href="lookbook">Lookbook</a>
-        <a href="collection">Collection</a><a href="craft">Craft</a>
-        <a href="order">Order</a><a href="collection#custom-commissions">Custom commissions</a>
+        <a href="craft">Craft</a><a href="collection#custom-commissions">Custom commissions</a>
       </nav>
       <div class="foot-contact">
         <span class="label" style="color:var(--copper-soft)">Lagos, Nigeria</span>
@@ -139,6 +105,7 @@
     </div>
   </div>
 </footer>
+<a class="btn wa-float" data-wa="general" href="order#whatsapp">WhatsApp</a>
 <script src="assets/js/main.js"></script>
 </body>
 </html>
